@@ -9,14 +9,15 @@ import Destination from '../src/Destination'
 const destinationsArray = destinations["destinations"].map(destinationObject => new Destination(destinationObject))
 
 describe('Trip', function() {
-  let trip1, trip2, trip3, trip4, trip5
+  let trip1, trip2, trip3, trip4, trip5, today
 
   beforeEach(function() {
-    trip1 = new Trip(trips['trips'][0], destinationsArray)
-    trip2 = new Trip(trips['trips'][1], destinationsArray)
-    trip3 = new Trip(trips['trips'][2], destinationsArray)
-    trip4 = new Trip(trips['trips'][3], destinationsArray)
-    trip5 = new Trip(trips['trips'][4], destinationsArray)
+    today = "2020/10/04"
+    trip1 = new Trip(trips['trips'][0], destinationsArray, today)
+    trip2 = new Trip(trips['trips'][1], destinationsArray, today)
+    trip3 = new Trip(trips['trips'][2], destinationsArray, today)
+    trip4 = new Trip(trips['trips'][3], destinationsArray, today)
+    trip5 = new Trip(trips['trips'][4], destinationsArray, today)
   });
 
   it('should be a function', function() {
@@ -47,7 +48,7 @@ describe('Trip', function() {
       "duration":18,
       "status":"pending",
       "suggestedActivities":[]
-    }, destinationsArray)
+    }, destinationsArray, today)
 
     const existingIds = [trip1, trip2, trip3, trip4, trip5].map(trip => trip.id)
     const isDuplicateId = existingIds.includes(trip6.id)
@@ -77,7 +78,7 @@ describe('Trip', function() {
       "date":"2020/10/04",
       "duration":18,
       "suggestedActivities":[]
-    }, destinationsArray)
+    }, destinationsArray, today)
 
     expect(trip6.status).to.equal('pending')
   });

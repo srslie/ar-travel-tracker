@@ -58,7 +58,7 @@ function login(event) {
 
 function convertDataIntoClassInstances() {
   destinations = destinations.map(destination => new Destination(destination))
-  trips = trips.map(trip => new Trip(trip, destinations))
+  trips = trips.map(trip => new Trip(trip, destinations, today))
   travelers = travelers.map(traveler => new Traveler(traveler, trips))
 }
 
