@@ -1,0 +1,21 @@
+$primary-font:'Open Sans', sans-serif;
+$secondary-font: 'Poppins', sans-serif;
+
+$bold-color1 = #067BC1
+$bold-color2 = #85BCDA
+$bold-color3 = #EBC405
+$bold-color4 = #F37848
+$bold-color5 = #F37848
+$muted-color1 = #FEEAEE
+$muted-color2 = #E1F1C3
+$muted-color3 = #F4FAFE
+
+@mixin hoverShadow($element) {
+  $element:hover {
+     box-shadow: 10px 10px 5px $bold-color5;
+  }
+}
+
+@mixin shadowStyle() {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
