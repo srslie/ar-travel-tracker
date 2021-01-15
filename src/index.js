@@ -5,12 +5,10 @@ import Trip from './Trip';
 import Destination from './Destination';
 import {getData, postData, deleteTrip} from './apis';
 
-
 let travelers = [];
 let trips = [];
 let destinations = [];
 let user;
-
 
 window.addEventListener("load", loadPage);
 
@@ -19,6 +17,14 @@ function addEvent(area, eventType, func) {
 }
 
 addEvent('.login-button', 'click', login)
+//add book trip submission event
+//add add destination submission event
+//add html creation of trips 
+//add html creation of money
+//add html creation of welcome banner
+//add toggling for different users
+//add search for user
+//add approval/denial for trips
 
 function loadPage(event) {
   getData('travelers', travelers)
@@ -27,11 +33,10 @@ function loadPage(event) {
 }
 
 function login() {
-  console.log('hi')
-  console.log('travelers', travelers)
-  console.log('trips', trips)
-  console.log('destinations', destinations)
   convertDataIntoClassInstances()
+  // console.log('travelers', travelers)
+  // console.log('trips', trips)
+  // console.log('destinations', destinations)
   findUser()
   if (user) {
     //setUp homepage

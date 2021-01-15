@@ -8,8 +8,8 @@
 @import "booking-form";
 @import "client-interaction";
 @import "add-destination-form";
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Poppins&display=swap")
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Poppins&display=swap");
 
-// body {
-  // font-family: $primary-font;
-// };
+.hidden {
+  display: none;
+}
