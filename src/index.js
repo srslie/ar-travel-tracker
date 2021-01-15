@@ -49,6 +49,7 @@ function login(event) {
   if (user) {
     domUpdates.toggle(['.login', '.traveler'])
     domUpdates.displayWelcomeBanner(user)
+    domUpdates.displayTotalTripSpending(user)
     displayTrips()
   } else {
     alert('Sorry, check username and password and try again')

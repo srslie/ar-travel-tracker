@@ -39,8 +39,20 @@ const domUpdates = {
         `
       }).join('')
     } 
-    this.addDisplay(`${area}`, 'beforeend', tripsHTML)
+    this.addDisplay( area, 'beforeend', tripsHTML)
+  }, 
+
+  displayTotalTripSpending(user) {
+    this.clearDisplay('.year-cost')
+    let moneyHTML = '<h2>Yearly Travel Investment</h2>'
+    if (user.totalTripSpending) {
+      moneyHTML += `<h3>$${user.calculateTotalTripSpending()}`
+    } else {
+      moneyHTML = 'Experiences are investments: book a trip!'
+    }
+    this.addDisplay( '.year-cost', 'beforeend', moneyHTML)
   }
+
 }
 
 export default domUpdates;
