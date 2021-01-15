@@ -8,7 +8,7 @@ import {getData, postData, deleteTrip} from './apis';
 let travelers = [];
 let trips = [];
 let destinations = [];
-let user;
+let user, today;
 
 window.addEventListener("load", loadPage);
 
@@ -30,29 +30,53 @@ function loadPage(event) {
   getData('travelers', travelers)
   getData('trips', trips)
   getData('destinations', destinations)
+  getToday()
 }
 
-function login() {
+function getToday() {
+  const dateToday = new Date()
+  const year = dateToday.getFullYear()
+  const month = dateToday.getMonth()+1
+  const day = dateToday.getDate();
+  today = [year, month, day].join('/')
+  console.log(today)
+}
+
+function login(event) {
+  // event.preventDefault()
   convertDataIntoClassInstances()
-  // console.log('travelers', travelers)
-  // console.log('trips', trips)
-  // console.log('destinations', destinations)
   findUser()
   if (user) {
-    //setUp homepage
+    domUpdates.toggle(['.login', '.traveler'])
+    domUpdates.displayWelcomeBanner(user)
+    displayTrips()
   } else {
     alert('Sorry, check username and password and try again')
   }
 }
 
 function convertDataIntoClassInstances() {
-  travelers.map(traveler => new Traveler(traveler))
-  trips.map(trip => new Trip(trip))
-  destinations.map(destination => new Destination(destination))
+  destinations = destinations.map(destination => new Destination(destination))
+  trips = trips.map(trip => new Trip(trip, destinations))
+  travelers = travelers.map(traveler => new Traveler(traveler, trips))
 }
 
 function findUser() {
   const username = document.querySelector('.username').value
   const userId = username.slice(8)
   user = travelers.find(traveler => traveler.id = userId)
+}
+
+function displayTrips() {
+  const pendingTrips = filterTrips('pending')
+  const approvedTrips = filterTrips('approved')
+  const rejectedTrips = filterTrips('rejected')
+  domUpdates.displayTrips(pendingTrips, '.upcoming')
+  domUpdates.displayTrips(approvedTrips, '.present')
+  domUpdates.displayTrips(rejectedTrips, '.past')
+
+}
+
+function filterTrips(status) {
+  return user.trips.filter(trip => trip.status === status)
 }

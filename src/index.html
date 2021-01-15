@@ -15,15 +15,15 @@
     <main>
       <section class="login">
 
-        <form class="login-form">
+        <form class="login-form" onsubmit="">
           <fieldset>
             <legend>Login</legend>
             <label for="username">Username<strong><abbr title="required">*</abbr></strong>
             </label>
-            <input type="text" required>
+            <input class="username" type="text" required>
             <label for="password">Password<strong><abbr title="required">*</abbr></strong>
             </label>
-            <input type="password" id="password" required>
+            <input class"password" type="password" id="password" required>
             <button class="login-button" type="button">Go to Trips!</button>
           </fieldset>
         </form>
@@ -41,7 +41,7 @@
           <h2>Upcoming Trips</h2>
         </section>
 
-        <form class="booking-form">
+        <form class="booking-form" onsubmit="">
           <fieldset>
             <legend>Book a Trip!</legend>
             <p>All fields are required <abbr title="required">*</abbr></p>
@@ -97,7 +97,7 @@
         </section>
 
 
-        <form class="add-destination-form">
+        <form class="add-destination-form" onsubmit="">
             <fieldset>
               <legend>Add a Destination</legend>
               <p>All fields are required <abbr title="required">*</abbr></p>

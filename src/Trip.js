@@ -24,7 +24,6 @@ class Trip {
       return totalWithFee
     }
   }
-
 }
 
 export default Trip;
