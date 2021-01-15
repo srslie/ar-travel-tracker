@@ -29,7 +29,7 @@ describe('Trip', function() {
 
    it('should have properties', function() {
      expect(trip1.id).to.equal(1)
-     expect(trip1.userID).to.equal(44)
+     expect(trip1.userID).to.equal(4)
      expect(trip2.destination).to.equal(25)
      expect(trip3.travelers).to.equal(4)
      expect(trip4.date).to.equal("2020/02/25")
