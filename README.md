@@ -1,105 +1,71 @@
-# Webpack Starter Kit
+# Travel Tracker
 
-## Clone This Repo
+Someday quarantine will end, and Travel Tracker can help you prepare for that fateful day!
 
-That's right, _clone_ not fork. You will use this repo multiple times, but you can only fork a repository once. So here is what you need to do to clone the repo and still be able to push changes to your repo:
+Once travel is back in the books, let us help book those books for you. The [Travel Tracker](https://srslie.github.io/travel-tracker/ allows users and travel agents to work together to make memorable trips and keep track of those good times.
 
-1. Clone down this repo. Since you don't want to name your project "webpack-starter-kit", you can use an optional argument when you run `git clone` (you replace the `[...]` with the terminal command arguments): `git clone [remote-address] [what you want to name the repo]`
-1. Remove the default remote: `git remote rm origin` (notice that `git remote -v` not gives you back nothing)
-1. Create a new repo on GitHub with the name of `[what you want to name the repo]` to be consistent with naming
-1. Copy the address that you would use to clone down this repo - something like `git@github.com:...`
-1. Add this remote to your cloned down repo: `git remote add origin [address you copied in the previous step]` - do not include the brackets
+Travelers can:
+- Login using
+    ```username: traveler50 (where 50 is the ID of the user)
+       password: travel2020
+    ```
+- See user dashboard when logging in including
+  - All trips (past, present, upcoming, and pending)
+  - Total amount spent on trips this year including a travel agent’s 10% fee
+- Be able to make trip requests
+  - Select dates
+  - Set duration
+  - Specify number of travelers 
+  - Choose from a list of destinations
+  - See estimated costs (including 10% travel agent fee) for the trip
+  - Submit the request to be 'pending' until the agent can approve/deny it
 
-Now try to commit something and push it up to your new repo. If everything is setup correctly, you should see the changes on GitHub.
-
-## Setup
-
-After one person has gone through the steps of cloning down this repo and editing the remote, everyone should clone down the repo. 
-
-Then install the library dependencies. Run:
-
-```bash
-npm install
+Travel Agents can:
+- Login using
 ```
-
-To verify that it is setup correctly, run `npm start` in your terminal. Go to `http://localhost:8080/` and you should see a page with some `h1` text, Turing logo image and a beautiful gradient background. If that's the case, you're good to go. Enter `control + c` in your terminal to stop the server at any time.
-
-## Where to Add Your Code
-
-### JavaScript
-
-You have to be very intentional with where you add your feature code. This repo uses a tool called [webpack](https://webpack.js.org/) to combine many JavaScript files into one big file. Webpack enables you to have many, separate JavaScript files to keep your code organized and readable. Webpack expects all of your code files to be in a specific place, or else it doesn't know how to combine them all behind the scenes.
-
-**Create all of your feature code files in the `src` directory.**
-
-Since code is separated into multiple files, you need to use the `import` and `export` syntax to share code across file.
-
-Here is a video that walks through some information about [import and export](https://www.youtube.com/watch?v=_3oSWwapPKQ). There are a lot of resources out there about `import` and `export`, and resources will sometimes call them `ES6 modules`. It's something you will see in React and beyond.
-
-### HTML
-
-Add the HTML you need in the `index.html` file in the `./src` directory. There is some boilerplate HTML that exists from the start that you can modify.
-
-### CSS (SCSS/SASS)
-
-This project is setup to use SCSS/SASS files by default instead of your regular CSS files. Add your SCSS files in the `src/css` directory. There is a `base.scss` file already there, but you can change this file and add multiple SCSS files in this directory.
-
-This might sound weird, but you need to `import` your SCSS files in the JavaScript entry file (`index.js`) for the styles to be applied to your HTML. The example `base.scss` file has already been imported in the JavaScript entry file as an example.
-
-### Images
-
-Add your image files in the `src/images` directory. Similar to CSS files, you need to `import` image files in the JavaScript entry file (`index.js`). Then go into the HTML and add an `img` element with the `src` attribute pointing to the `images` directory. There is an example in the `index.html` file for you to see.
-
-## How to View Your Code in Action
-
-In the terminal, run:
-
-```bash
-npm start
+username: agency
+password: travel2020
 ```
+- See a dashboard showing
+  - New trip requests (a user’s “pending” trips)
+  - Total income generated this year (should be 10% of user trip cost)
+  - Travelers on trips for today’s date
+- Be able to see and approve/deny trip requests 
+- Search for users by name and
+  - View their name, a list of all of their trips, and the total amount they’ve spent (including 10% agent cut)
+  - Approve a trip request for that user
+  - Delete an upcoming trip for that user
 
-You will see a bunch of lines output to your terminal. One of those lines will be something like:
+This is the final project of [Turing School](https://turing.io/) Mod 2.
 
-```bash
-Project is running at http://localhost:8080/
-```
+## Technologies
 
-Go to `http://localhost:8080/` in your browser to view your code running in the browser.
+This app utilized:
+- ES6 Javascript with a focus on DRY, SRP, OOP code
+- Class object modeling with a testing using Mocha and Chai
+- SCSS broken out into logical stylesheets using mixins and nesting
+- A CSS [normalize](https://github.com/necolas/normalize.css/) file for browser compatability
+- Accessibility testing using [aria labels](https://www.w3.org/TR/wai-aria/#aria-label) and [Colorblinding](https://chrome.google.com/webstore/detail/colorblinding/dgbgleaofjainknadoffbjkclicbbgaa?hl=en) checks alongside semantic HTML
+- Webpack bundling for multiple script and SCSS files
+- A local server running API endpoints for a separated data model
+- Github pages deployment
+- Git workflow, a kanban project board, and self-management of design and development
 
----
+The challenge of working with these technologies I'm fairly new to, as well as completing the process in a matter of 5 days, helped me learn a lot about prioritization, using my resources, managing time, dedicating to design decisions, and organizing my project. I was grateful for this experience and am sure next time I practice this process the outcome will be sleeker and I'll be able to produce in a more efficient manner.
 
-## Test Files Organization
+## Contributors
 
-Similar to feature code, your test code needs to be put in a specific place for it to run successfully.
+This app was coded by me, [Alice Ruppert](https://www.srslie.com/), following a [spec](https://frontend.turing.io/projects/travel-tracker.html) by Turing School staff.
 
-**Put all of your test files in the `test` directory.** As a convention, all test filenames should end with `-test.js`. For instance: `box-test.js`.
+Special thanks to my mentor, [Scott Schipke](https://github.com/sschipke) and my accountabilibuddy, [Gabrielle Joyce](https://github.com/gaj23), for their technical support, and my partner for making me food.
 
-## Running Your Tests
+## Future Iterations
 
-Run your test suite using the command:
+While no future development is planned at this time, if time allowed or the project was ongoing, I would like to address:
+- 
 
-```bash
-npm test
-```
+## In Action
 
-The test results will output to the terminal.
+![GIF of app responsive design]()
 
----
-
-## Linting Your Code
-
-Run the command in your terminal `npm run lint` to run the linter on your JavaScript code. There will be errors and warnings right from the start in this starter kit - the linter is still running successfully.
-
-Your linter will look at the JavaScript files you have within the `src` directory and the `test` directory. 
-
-## Webpack?
-
-If you look in the `package.json` file, you'll see one of the library dependencies called `webpack`. If you're interested in learning more about what Webpack is and how it works behind the scenes, take a look through the [Webpack configuration documentation](https://webpack.js.org/concepts/).
-
-## Deploying to GitHub Pages
-
-_If you are finished with the functionality and testing of your project_, then you can consider deploying your project to the web! This way anyone can play it without cloning down your repo.
-
-[GitHub Pages](https://pages.github.com/) is a great way to deploy your project to the web. Don't worry about this until your project is free of bugs and well tested!
-
-If you _are_ done, you can follow [this procedure](./gh-pages-procedure.md) to get your project live on GitHub Pages.
+![GIF of functionality]()
