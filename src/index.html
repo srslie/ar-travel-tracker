@@ -13,7 +13,6 @@
     </header> 
 
     <main>
-
       <section class="login">
 
         <form class="login-form">
@@ -25,7 +24,7 @@
             <label for="password">Password<strong><abbr title="required">*</abbr></strong>
             </label>
             <input type="password" id="password" required>
-            <button type="submit">Go to Trips!</button>
+            <button class="login-button" type="button">Go to Trips!</button>
           </fieldset>
         </form>
 
@@ -33,12 +32,12 @@
 
       <section class="traveler">
         
-        <section class="year-cost">
+        <section class="year-cost money">
           <h2>Yearly Travel Investment</h2>
-        <section class="present">
+        <section class="present trips">
           <h2>Present Trips</h2>
         </section>
-        <section class="upcoming">
+        <section class="upcoming trips">
           <h2>Upcoming Trips</h2>
         </section>
 
@@ -65,15 +64,15 @@
               <select id="destinations" placeholder="Paradise At...">
               </select>
             
-              <button type="submit" aria-label="Submit">Submit ForBooking</button>
+              <button type="submit" aria-label="Submit">Submit For Booking</button>
           </fieldset>
         </form>
 
-        <section class="pending">
+        <section class="pending trips">
           <h2>Pending Trips</h2>
         </section>
 
-        <section class="past">
+        <section class="past trips">
           <h2>Past Trips</h2>
         </section>
 
@@ -81,19 +80,19 @@
 
       <section class="travel-agent">
 
-        <section class="income">
+        <section class="income money">
           <h2>Total Yearly Earnings</h2>
         </section>
-        <section class="pending">
+        <section class="pending trips">
           <h2>Pending Trips<h2>
         </section>
-        <section class="today-travels">
+        <section class="today-travels trips">
           <h2>Today's Travels</h2>
         </section>
     
         <section class="client-interaction">
           <label for="user-search" aria-label="search for user">Search for client</label>
-          <input type="text" placeholder="Whatstheirname Whatever...">
+          <input type="text" placeholder="WhatsTheirName...">
           <button class="user-search" type="button" aria-label="search submit">Search</button>
         </section>
 
@@ -101,7 +100,7 @@
         <form class="add-destination-form">
             <fieldset>
               <legend>Add a Destination</legend>
-              <p>All fields are required <abbr title="required">*</abbr>.</p>
+              <p>All fields are required <abbr title="required">*</abbr></p>
                 <label for="destinations">Destination Name<abbr title="required" aria-label="required">*</abbr>
                 </label>
                 <input class="destination-name" type="text" name="destination-name" id="destination-name" placeholder="Anyplace, Anywhere...">
