@@ -27,3 +27,5 @@ const travelers = {
     }
   ]
 }
+
+export default travelers;

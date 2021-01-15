@@ -1,5 +1,5 @@
 const trips = { 
-  "trips":[
+  "trips": [
     {
       "id":1,
       "userID":44,
@@ -53,3 +53,5 @@ const trips = {
     }
   ]
 }
+
+export default trips;
