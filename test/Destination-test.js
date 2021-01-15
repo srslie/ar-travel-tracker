@@ -37,14 +37,14 @@ describe('Destination', function() {
     expect(cartagena.calculateFee(46.50)).to.equal(51.15)
   });
 
-  it('should calculate price with fee for lodging', function() {
-    expect(sydney.calculateCost(5, "estimatedLodgingCostPerDay")).to.equal(715)
-    expect(stockholm.calculateCost(2, "estimatedLodgingCostPerDay")).to.equal(220)
+  it('should calculate price for lodging', function() {
+    expect(sydney.calculateCost(5, "estimatedLodgingCostPerDay")).to.equal(650)
+    expect(stockholm.calculateCost(2, "estimatedLodgingCostPerDay")).to.equal(200)
   });
 
-  it('should calculate price with fee for flights', function() {
-    expect(stockholm.calculateCost(1, "estimatedFlightCostPerPerson")).to.equal(858)
-    expect(madrid.calculateCost(10, "estimatedFlightCostPerPerson")).to.equal(7150)
+  it('should calculate price for flights', function() {
+    expect(stockholm.calculateCost(1, "estimatedFlightCostPerPerson")).to.equal(780)
+    expect(madrid.calculateCost(10, "estimatedFlightCostPerPerson")).to.equal(6500)
   });
 
 });

@@ -3,7 +3,7 @@ const trips = {
     {
       "id":1,
       "userID":44,
-      "destinationID":49,
+      "destinationID":1,
       "travelers":1,
       "date":"2019/09/16",
       "duration":8,
@@ -24,7 +24,7 @@ const trips = {
     {
       "id":3,
       "userID":3,
-      "destinationID":22,
+      "destinationID":2,
       "travelers":4,
       "date":"2020/05/22",
       "duration":17,
@@ -32,9 +32,9 @@ const trips = {
       "suggestedActivities":[]
     },
     {
-      "id":4",
-      userID":43,
-      "destinationID":14,
+      "id":4,
+      "userID":43,
+      "destinationID":3,
       "travelers":2,
       "date":"2020/02/25",
       "duration":10,
@@ -44,9 +44,9 @@ const trips = {
     {
       "id":5,
       "userID":42,
-      "destinationID":29,
+      "destinationID":5,
       "travelers":3,
-      "date":"2020/04/30"
+      "date":"2020/04/30",
       "duration":18,
       "status":"approved",
       "suggestedActivities":[]

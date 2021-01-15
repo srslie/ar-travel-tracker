@@ -12,14 +12,9 @@ class Destination {
     return subtotal + (subtotal * .1) 
   }
 
-  //for either lodging Or Flight
   calculateCost(num, priceProperty) {
-    const pricePerNum = this[priceProperty]
-    const stayCost = pricePerNum * num
-    const totalWithFee = this.calculateFee(stayCost)
-    return totalWithFee
+    return this[priceProperty] * num
   }
-
 }
 
 export default Destination;
