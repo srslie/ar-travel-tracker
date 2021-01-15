@@ -1,13 +1,14 @@
 // possible databases: 'travelers', 'travelers/${id}', 'trips', 'destinations'
 
 export function getData(database, localArray) {
-  fetch( `http://localhost:3001/api/v1/${database}`)
+  fetch(`http://localhost:3001/api/v1/${database}`)
   .then(response => response.json())
-  .then(dataArray => {
-      dataArray.forEach(dataObject => {
-        localArray.push(dataObject)
-      })
+  .then(dataObject => {
+    const dataKey = Object.keys(dataObject)
+    dataObject[dataKey[0]].forEach(dataObject => {
+      localArray.push(dataObject)
     })
+  })
   .catch(error => alert(`Sorry, there is an error: ${error}`))
 }
 
@@ -28,7 +29,7 @@ export function postData(database, bodyPost) {
     },
     body: JSON.stringify(bodyPost)
   }
-  fetch( `http://localhost:3001/api/v1/${database}`, settings)
+  fetch(`http://localhost:3001/api/v1/${database}`, settings)
   .then(response => response.json())
   .catch(error => alert(`Sorry, there is an error: ${error}`))
 }
@@ -40,6 +41,6 @@ export function deleteTrip(tripId) {
       'Content-Type': 'application/json'
     }
   }
-  fetch( `http://localhost:3001/api/v1/trips/${tripId}`, settings)
+  fetch(`http://localhost:3001/api/v1/trips/${tripId}`, settings)
   .catch(error => alert(`Sorry, there is an error: ${error}`))
 }
