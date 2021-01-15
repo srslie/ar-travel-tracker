@@ -1,10 +1,49 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
-// An example of how you tell webpack to use a CSS (SCSS) file
 import './css/base.scss';
+import domUpdates from './dom-updates';
+import Traveler from './Traveler';
+import Trip from './Trip';
+import Destination from './Destination';
+import {getData, postData, deleteTrip} from '/.apis';
 
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
-import './images/turing-logo.png'
 
-console.log('This is the JavaScript entry file - your code begins here.');
+let travelers = [];
+let trips = [];
+let destinations = [];
+let user;
+
+
+window.addEventListener("load", loadPage);
+
+function addEvent(area, eventType, func) {
+  document.querySelector(area).addEventListener(eventType, func)
+}
+
+addEvent('.login-btn', 'sumbit', login)
+
+function loadPage(event) {
+  getData('travelers)
+  getData('trips')
+  getData('destinations')
+}
+
+function login() {
+  convertDataIntoClassInstances()
+  findUser()
+  if (user) {
+    //setUp homepage
+  } else {
+    alert('Sorry, check username and password and try again')
+  }
+}
+
+function convertDataIntoClassInstances() {
+  travelers.map(traveler => new Traveler(traveler))
+  trips.map(trip => new Trip(trip))
+  destinations.map(destination => new Destination(destination))
+}
+
+function findUser() {
+  const username = document.querySelector('.username').value
+  const userId = username.slice(8)
+  user = travelers.find(traveler => traveler.id = userId)
+}
