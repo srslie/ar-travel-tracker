@@ -1,5 +1,5 @@
 class Trip {
-  constructor(trip, destinations, todayDate) {
+  constructor(trip, destinations, today) {
     this.id = trip["id"] || Date.now()
     this.userID = trip["userID"]
     this.destination = destinations.find(destination => {
@@ -7,57 +7,48 @@ class Trip {
     }) || trip["destinationID"]
     this.travelers = trip["travelers"]
     this.date = trip["date"]
-    this.endDate = ''
     this.duration = trip["duration"]
     this.status = trip["status"] || "pending"
     this.suggestedActivities = trip["suggestedActivities"]
-    this.isToday = this.checkIfToday(todayDate)
-    this.checkWhen(todayDate)
+    this.today = today
+    console.log('HELLO', this.today, this.id)
+    this.endDate = this.setEndDate() 
+    this.checkWhen(today)
   }
 
-  checkIfToday(todayDate) {
-    if (this.status != 'approved') {
-      return false
-    } 
+  setEndDate() {
+    const thisDate = this.date
     const splitDate = this.date.split('/')
     const dateRearrange = [splitDate[1], splitDate[2], splitDate[0]].join('/')
-    const dateRangeFill = Array(this.duration).fill(dateRearrange)
-    let dateRange = []
-    dateRangeFill.forEach((d, i) => {
-      let dateObject = new Date(d)
-      if (i === 0) {
-        dateRange.push(dateObject)
-      } else {
-        dateObject.setDate(dateObject.getDate() + i)
-        dateRange.push(dateObject)
-      }
-    })
-    const restructuredDates = dateRange.map(dateObject => {
-      return dateObject.toLocaleDateString('en-ZA')
-    })
-    this.endDate = restructuredDates[restructuredDates.length-1]
-    return restructuredDates.includes(todayDate) ? true : false
+    const startDate = new Date(dateRearrange)
+    const endDateMilliseconds = startDate.setDate(startDate.getDate() + this.duration)
+    const endDate = new Date(endDateMilliseconds)
+    return endDate.toLocaleDateString('en-ZA')
   }
 
   convertDateToNumber(date) {
-    return parseInt(date.split('/').join(''))
+    console.log('INNUMBER', this.today)
+    return date ? parseInt(date.split('/').join('')) : 0
   }
 
-  checkWhen(todaysDate) {
-    if (this.status != 'approved' || this.isToday) {
-      this.isPast = false
-      this.isUpcoming = false
-    } 
+  checkWhen() {
+    this.isToday = false
+    this.isPast = false
+    this.isUpcoming = false
 
-    const dateNumber = this.convertDateToNumber(todaysDate)
+    const todayDateNumber = this.convertDateToNumber(this.today)
     const startDateNumber = this.convertDateToNumber(this.date)
     const endDateNumber = this.convertDateToNumber(this.endDate)
 
-    if (dateNumber > endDateNumber) {
+    console.log('numbers', [todayDateNumber, startDateNumber, endDateNumber])
+
+    if (todayDateNumber >= startDateNumber && todayDateNumber <= endDateNumber) {
+      this.isToday = true
+      return
+    } else if (todayDateNumber > endDateNumber) {
       this.isPast = true
-      this.isUpcoming = false
-    } else if (dateNumber < startDateNumber) {
-      this.isPast = false
+      return
+    } else {
       this.isUpcoming = true
     }
   }
