@@ -30,23 +30,50 @@ const domUpdates = {
         : ''
         return `
         <article class="trip-card ${trip.status}">
-          <h2>Trip to ${trip.destination.destination}</h2>
-          <h3>Status: ${trip.status}</h3>
-          <h3>Start Date: ${trip.date}</h3>
-          <h3>Length of Stay: ${trip.duration}</h3>
-          <h3>Number of Travelers: ${trip.travelers}</h3>
+          <h2>Trip to: ${trip.destination.destination}</h2>
+          <h3>Status:</h3>
+           <p>${trip.status}</p>
+          <h3>Start Date:</h3>
+           <p>${trip.date}</p>
+          <h3>Length of Stay:</h3>
+           <p>${trip.duration}</p>
+          <h3>Number of Travelers:</h3>
+           <p>${trip.travelers}</p>
           ${suggestedActivities}
         `
       }).join('')
     } 
-    this.addDisplay( area, 'beforeend', tripsHTML)
+    this.addDisplay( area, 'beforeend', this.addTripLabel(area)+tripsHTML)
   }, 
+
+  addTripLabel(area) {
+    switch(area) {
+      case ('.present'):
+        return '<h2>Present Trips</h2>'
+        break;
+      case ('.upcoming'):
+        return '<h2>Upcoming Trips</h2>'
+        break;
+      case ('.pending'):
+        return '<h2>Pending Trips</h2>'
+        break;
+      case ('.approved'):
+        return '<h2>Approved Trips</h2>'
+        break;
+      case ('.rejected'):
+        return '<h2>Rejected Trips</h2>'
+        break;
+      case ('.past'):
+        return '<h2>Past Trips</h2>'
+        break;
+    }
+  },
 
   displayTotalTripSpending(user) {
     this.clearDisplay('.year-cost')
     let moneyHTML = '<h2>Yearly Travel Investment</h2>'
     if (user.totalTripSpending) {
-      moneyHTML += `<h3>$${user.calculateTotalTripSpending()}`
+      moneyHTML += `<p>$${user.calculateTotalTripSpending()}</p>`
     } else {
       moneyHTML = 'Experiences are investments: book a trip!'
     }
