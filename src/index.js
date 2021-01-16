@@ -35,16 +35,18 @@ function loadPage(event) {
 
 function getToday() {
   const dateToday = new Date()
-  const year = dateToday.getFullYear()
-  const month = dateToday.getMonth()+1
-  const day = dateToday.getDate();
-  today = [year, month, day].join('/')
-  console.log(today)
+  today = dateToday.toLocaleDateString('en-ZA')
+  // const year = dateToday.getFullYear()
+  // const month = dateToday.getMonth()+1
+  // const day = dateToday.getDate();
+  // today = [year, month, day].join('/')
+  // console.log(today)
 }
 
 function login(event) {
   // event.preventDefault()
   convertDataIntoClassInstances()
+  console.log(trips[0])
   findUser()
   if (user) {
     domUpdates.toggle(['.login', '.traveler'])
@@ -69,15 +71,27 @@ function findUser() {
 }
 
 function displayTrips() {
-  const pendingTrips = filterTrips('pending')
-  const approvedTrips = filterTrips('approved')
-  const rejectedTrips = filterTrips('rejected')
-  domUpdates.displayTrips(pendingTrips, '.upcoming')
-  domUpdates.displayTrips(approvedTrips, '.present')
-  domUpdates.displayTrips(rejectedTrips, '.past')
+  const pendingTrips = filterTripsStatus('pending')
+  const approvedTrips = filterTripsStatus('approved')
+  const rejectedTrips = filterTripsStatus('rejected')
+  const upcomingTrips = user.trips.filter(trip => trip.isUpcoming)
+  const presentTrips = user.trips.filter(trip => trip.isToday)
+  const pastTrips = user.trips.filter(trip => trip.isPast)
+  domUpdates.displayTrips(presentTrips, '.present')
+  domUpdates.displayTrips(upcomingTrips, '.upcoming')
+  domUpdates.displayTrips(pendingTrips, '.pending')
+  // console.log('approved', approvedTrips)
+  // console.log('pending', pendingTrips)
+  // console.log('rejected', rejectedTrips)
+  // console.log('upcoming', approvedTrips)
+  // console.log('present', presentTrips)
+  // console.log('past', pastTrips)
+  domUpdates.displayTrips(approvedTrips, '.approved')
+  domUpdates.displayTrips(rejectedTrips, '.rejected')
+  domUpdates.displayTrips(pastTrips, '.past')
 
 }
 
-function filterTrips(status) {
+function filterTripsStatus(status) {
   return user.trips.filter(trip => trip.status === status)
 }
