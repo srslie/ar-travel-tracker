@@ -1,6 +1,6 @@
+@import "variables";
 @import "normalize";
 @import "media-queries";
-@import "variables";
 @import "header";
 @import "login";
 @import "money";
@@ -10,6 +10,28 @@
 @import "add-destination-form";
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Poppins&display=swap");
 
+* {
+  font-family: $primary-font;
+}
+
+h2, h3 {
+  font-family: $secondary-font;
+}
+
+// .trip-card {
+//   // @import box-shadow(10px, 10px, 10px, $bold-color2)
+//   box-shadow: 10px, 10px, 10px, $bold-color2
+// }
+
+button {
+  border: 1px solid black;
+  @include hover();
+}
+
 .hidden {
   display: none;
+}
+
+abbr {
+  border: none; 
 }

@@ -10,29 +10,35 @@ $muted-color1: #FEEAEE;
 $muted-color2: #E1F1C3;
 $muted-color3: #F4FAFE;
 
-// @mixin hoverShadow($element) {
-//   $element:hover {
-//      box-shadow: 10px 10px 5px $bold-color5;
+// @mixin hoverShadow(element) {
+//   #{element}: {
+//       &:hover {
+//       box-shadow: 10px 10px 5px $bold-color5;
+//     }
 //   }
 // }
 
-@mixin shadowStyle() {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+@mixin hover() {
+  background-color: $bold-color2;
 }
 
-@mixin formStyle() {
-  padding: 10px;
+// @mixin shadowStyle() {
+//   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+// }
+
+@mixin formStyle($padding) {
+  padding: $padding;
   margin:10px 0;
   border: 2px solid $bold-color2;
   border-radius:10px;
   width:100%;
+  background-color: $bold-color3;
 
   input, textarea {
     font-family: inherit;
     font-size: inherit;
     resize: vertical;
   }
-
 }
 
 // @mixin buttonStyling() {

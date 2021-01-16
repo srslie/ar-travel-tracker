@@ -1,10 +1,12 @@
-login-form {
-  // @include shadowStyle();
+.login {
+   @include formStyle(50px);
   
+
   button {
-    // @import buttonStyling(); 
+    //@import buttonStyling(); 
     background-color: $bold-color4;
     color: $muted-color1;
+    // @import hoverShadow(button)
   }
 }
 
