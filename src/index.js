@@ -17,14 +17,10 @@ function addEvent(area, eventType, func) {
 }
 
 addEvent('.login-button', 'click', login)
-//add book trip submission event
-//add add destination submission event
-//add html creation of trips 
-//add html creation of money
-//add html creation of welcome banner
-//add toggling for different users
-//add search for user
-//add approval/denial for trips
+addEvent('.booking-button', 'submit', bookTrip)
+addEvent('.user-search', 'click', searchForUser)
+addEvent('.add-destination-button', 'submit', addDestination)
+addEvent('.user-search-results', 'click', reviewTrips)
 
 function loadPage(event) {
   getData('travelers', travelers)
@@ -36,23 +32,17 @@ function loadPage(event) {
 function getToday() {
   const dateToday = new Date()
   today = dateToday.toLocaleDateString('en-ZA')
-  // const year = dateToday.getFullYear()
-  // const month = dateToday.getMonth()+1
-  // const day = dateToday.getDate();
-  // today = [year, month, day].join('/')
-  // console.log(today)
 }
 
 function login(event) {
-  // event.preventDefault()
+  event.preventDefault()
   convertDataIntoClassInstances()
-  console.log(trips[0])
   findUser()
   if (user) {
     domUpdates.toggle(['.login', '.traveler'])
     domUpdates.displayWelcomeBanner(user)
-    domUpdates.displayTotalTripSpending(user)
-    displayTrips()
+    domUpdates.displayTotalMoney(user, '.income')
+    displayUserTrips()
   } else {
     alert('Sorry, check username and password and try again')
   }
@@ -66,32 +56,88 @@ function convertDataIntoClassInstances() {
 
 function findUser() {
   const username = document.querySelector('.username').value
-  const userId = username.slice(8)
-  user = travelers.find(traveler => traveler.id = userId)
+  const userId = parseInt(username.slice(8))
+  user = travelers.find(traveler => traveler.id === userId)
 }
 
-function displayTrips() {
-  const pendingTrips = filterTripsStatus('pending')
-  const approvedTrips = filterTripsStatus('approved')
-  const rejectedTrips = filterTripsStatus('rejected')
-  const upcomingTrips = user.trips.filter(trip => trip.isUpcoming)
-  const presentTrips = user.trips.filter(trip => trip.isToday)
-  const pastTrips = user.trips.filter(trip => trip.isPast)
+function displayUserTrips() {
+  const presentTrips = user.trips.filter(trip => trip['isToday'])
   domUpdates.displayTrips(presentTrips, '.present')
+
+  const upcomingTrips = user.trips.filter(trip => trip['isUpcoming'])
   domUpdates.displayTrips(upcomingTrips, '.upcoming')
+
+  const pendingTrips = user.trips.filter(trip => trip.status === 'pending')
   domUpdates.displayTrips(pendingTrips, '.pending')
-  // console.log('approved', approvedTrips)
-  // console.log('pending', pendingTrips)
-  // console.log('rejected', rejectedTrips)
-  // console.log('upcoming', approvedTrips)
-  // console.log('present', presentTrips)
-  // console.log('past', pastTrips)
+
+  const approvedTrips = user.trips.filter(trip => trip.status === 'approved')
   domUpdates.displayTrips(approvedTrips, '.approved')
-  domUpdates.displayTrips(rejectedTrips, '.rejected')
+
+  const pastTrips = user.trips.filter(trip => trip['isPast'])
   domUpdates.displayTrips(pastTrips, '.past')
 
+  const rejectedTrips = user.trips.filter(trip => trip.status === 'rejected')
+  domUpdates.displayTrips(rejectedTrips, '.rejected')
 }
 
-function filterTripsStatus(status) {
-  return user.trips.filter(trip => trip.status === status)
+// function createTripCards(tripsList, area, condition) {
+//   const tripsList = filterTrips(condition)
+//   domUpdates.displayTrips(tripslist, area)
+// }
+
+// function filterTrips(condition) {
+//   return user.trips.filter(trip => condition)
+// }
+
+function bookTrip(event) {
+  event.preventDefault()
+
+}
+
+function searchForUser() {
+  const searchInput = document.querySelector('.user-search-input').value
+  const searchResults = travelers.filter(traveler => (
+    traveler.name.includes(searchInput))
+  )
+  domUpdates.displaySearchResults(searchResults)
+}
+
+function addDestination(event) {
+  event.preventDefault()
+
+}
+
+function reviewTrips(event) {
+  const targetCard = event.target.closest('.trip-card')
+  const tripID = targetCard.getAttribute('id')
+  const targetButtonName = event.target.closest('button').getAttribute('name')
+
+  switch (targetButtonName) {
+    case 'approve':
+      approveTrip(tripId)
+      break;
+    case 'reject':
+      rejectTrip(tripId)
+      break;
+  }
+}
+
+function approveTrip(tripId) {
+  console.log('Approved')
+}
+
+function rejectTrip(tripId) {
+  console.log('Rejected')
+}
+
+function refreshData() {
+  Promise.all([
+    getData('travelers', travelers),
+    getData('trips', trips),
+    getData('destinations', destinations)
+  ])
+  .then(data => {
+    convertDataIntoClassInstances()
+    displayTrips()
+  })
 }
