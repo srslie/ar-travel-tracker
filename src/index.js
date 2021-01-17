@@ -32,6 +32,9 @@ function loadPage(event) {
 function getToday() {
   const dateToday = new Date()
   today = dateToday.toLocaleDateString('en-ZA')
+  const todayForCalendarMin = today.split('/').join('-')
+  document.querySelector('.start-date')
+    .setAttribute('min', todayForCalendarMin);
 }
 
 function login(event) {
@@ -61,33 +64,18 @@ function findUser() {
 }
 
 function displayUserTrips() {
-  const presentTrips = user.trips.filter(trip => trip['isToday'])
-  domUpdates.displayTrips(presentTrips, '.present')
-
-  const upcomingTrips = user.trips.filter(trip => trip['isUpcoming'])
-  domUpdates.displayTrips(upcomingTrips, '.upcoming')
+  createTripCards('isToday','.present')
+  createTripCards('isUpcoming', '.upcoming')
+  createTripCards('isPast', '.past')
 
   const pendingTrips = user.trips.filter(trip => trip.status === 'pending')
   domUpdates.displayTrips(pendingTrips, '.pending')
-
-  const approvedTrips = user.trips.filter(trip => trip.status === 'approved')
-  domUpdates.displayTrips(approvedTrips, '.approved')
-
-  const pastTrips = user.trips.filter(trip => trip['isPast'])
-  domUpdates.displayTrips(pastTrips, '.past')
-
-  const rejectedTrips = user.trips.filter(trip => trip.status === 'rejected')
-  domUpdates.displayTrips(rejectedTrips, '.rejected')
 }
 
-// function createTripCards(tripsList, area, condition) {
-//   const tripsList = filterTrips(condition)
-//   domUpdates.displayTrips(tripslist, area)
-// }
-
-// function filterTrips(condition) {
-//   return user.trips.filter(trip => condition)
-// }
+function createTripCards(condition, area) {
+  const tripsList = user.trips.filter(trip => trip[condition])
+  domUpdates.displayTrips(tripsList, area)
+}
 
 function bookTrip(event) {
   event.preventDefault()
