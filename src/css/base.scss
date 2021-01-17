@@ -32,6 +32,15 @@ button {
   display: none;
 }
 
-abbr {
+.abbr {
   border: none; 
+}
+
+.section {
+  padding: 10px;
+}
+
+.trip-card {
+  border: 1px solid black;
+  box-shadow: 10px, 10px, 10px, $bold-color2
 }
