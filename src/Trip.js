@@ -11,7 +11,7 @@ class Trip {
     this.status = trip["status"] || "pending"
     this.suggestedActivities = trip["suggestedActivities"]
     this.today = today
-    console.log('HELLO', this.today, this.id)
+    // console.log('Today check in constructor with id', this.today, this.id)
     this.endDate = this.setEndDate() 
     this.checkWhen(today)
   }
@@ -27,7 +27,7 @@ class Trip {
   }
 
   convertDateToNumber(date) {
-    console.log('INNUMBER', this.today)
+    // console.log('Date check in ConvertToNumber', this.today)
     return date ? parseInt(date.split('/').join('')) : 0
   }
 
@@ -40,7 +40,7 @@ class Trip {
     const startDateNumber = this.convertDateToNumber(this.date)
     const endDateNumber = this.convertDateToNumber(this.endDate)
 
-    console.log('numbers', [todayDateNumber, startDateNumber, endDateNumber])
+    // console.log('numbers', [todayDateNumber, startDateNumber, endDateNumber])
 
     if (todayDateNumber >= startDateNumber && todayDateNumber <= endDateNumber) {
       this.isToday = true
