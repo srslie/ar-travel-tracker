@@ -12,18 +12,17 @@ class Trip {
     this.suggestedActivities = trip["suggestedActivities"]
     this.today = today
     // console.log('Today check in constructor with id', this.today, this.id)
-    this.endDate = this.setEndDate() 
+    this.setEndAndYearDates() 
     this.checkWhen(today)
   }
-
-  setEndDate() {
-    const thisDate = this.date
+  
+  setEndAndYearDates() {
     const splitDate = this.date.split('/')
     const dateRearrange = [splitDate[1], splitDate[2], splitDate[0]].join('/')
     const startDate = new Date(dateRearrange)
     const endDateMilliseconds = startDate.setDate(startDate.getDate() + this.duration)
     const endDate = new Date(endDateMilliseconds)
-    return endDate.toLocaleDateString('en-ZA')
+    this.endDate = endDate.toLocaleDateString('en-ZA')
   }
 
   convertDateToNumber(date) {
