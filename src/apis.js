@@ -4,8 +4,7 @@ export function getData(database, localArray) {
   fetch(`http://localhost:3001/api/v1/${database}`)
   .then(response => response.json())
   .then(dataObject => {
-    const dataKey = Object.keys(dataObject)
-    dataObject[dataKey[0]].forEach(dataObject => {
+    dataObject[database].forEach(dataObject => {
       localArray.push(dataObject)
     })
   })
