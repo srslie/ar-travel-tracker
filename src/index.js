@@ -1,4 +1,7 @@
 import './css/base.scss';
+import './images/airplane.svg';
+import './images/globe.png';
+import './images/travel.svg'
 import domUpdates from './dom-updates';
 import Traveler from './Traveler';
 import Trip from './Trip';
@@ -17,17 +20,17 @@ function addEvent(area, eventType, func) {
 }
 
 addEvent('.login-button', 'click', login)
-addEvent('.popup', 'click', popupBookingForm)
+addEvent('.display-booking-button', 'click', displayBookingForm)
 addEvent('.booking-button', 'submit', bookTrip)
 addEvent('.user-search', 'click', searchForUser)
 addEvent('.add-destination-button', 'submit', addDestination)
 addEvent('.user-search-results', 'click', reviewTrips)
 
 function loadPage(event) {
-  getData('travelers', travelers)
-  getData('trips', trips)
-  getData('destinations', destinations)
-  getToday()
+    getData('travelers', travelers),
+    getData('trips', trips),
+    getData('destinations', destinations)
+    getToday()
 }
 
 function getToday() {
@@ -43,11 +46,10 @@ function login(event) {
   convertDataIntoClassInstances()
   findUser()
   if (user) {
-    domUpdates.toggle(['.login', '.traveler'])
+    domUpdates.toggle(['.login', '.traveler', '.display-booking-button'])
     domUpdates.displayWelcomeBanner(user)
-    domUpdates.displayTotalTripSpending(user, todaygit)
+    domUpdates.displayTotalTripSpending(user, today)
     domUpdates.createBookingsSelection(destinations)
-    domUpdates.toggle(['footer'])
     displayUserTrips(today)
   } else {
     alert('Sorry, check username and password and try again')
@@ -76,10 +78,11 @@ function displayUserTrips(today) {
   domUpdates.displayTrips(pendingTrips, '.pending')
 }
 
-function popupBookingForm(event) {
+function displayBookingForm(event) {
   event.preventDefault()
-  document.querySelector(".popup")
-  domUpdates.toggle(['footer', 'footer-box'])
+  
+  domUpdates.toggle(['.booking-area'])
+  console.log('hello', document.querySelector('.booking-area'))
 }
 
 function bookTrip(event) {

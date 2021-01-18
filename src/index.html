@@ -6,23 +6,22 @@
   </head>
   <body>
     <header class="sticky">
-    <div class="welcome-wrapper">
-      <h2 class="welcome-banner"></h2>
-    </div>  
-   
+    <span class="logo">
+      <img class="travel" src="/images/travel.svg" alt="plane and globe" aria="hidden">
       <h1 class="page-title">Travel Tracker</h1>
+    </span>
+       <button class="display-booking-button hidden">
+       <img class="airplane" src="/images/airplane.svg" alt="airplane" aria="hidden"><br>Book a trip!</button>
     </header> 
   
     <main>
       <section class="login">
-        <svg class="airplane" url="src/images/airplane.svg" alt="airplane"aria="hidden">
-        </svg>
         <form class="login-form" for="login-button" onsubmit="">
           <fieldset class="login-field">
             <legend>Login</legend>
-            <label for="username">Username<strong><abbr title="required">*</abbr></strong>
+            <label for="username">Username <strong><abbr title="required">*</abbr></strong>
             </label>
-            <input class="username" type="text" required><br>
+            <input class="username" type="text" id="username" name="username" required><br>
             <label for="password">Password <strong><abbr title="required">*</abbr></strong>
             </label>
             <input class"password" type="password" id="password" required>
@@ -31,7 +30,9 @@
         </form>
       </section>
 
-      <section class="traveler hidden">
+
+    <section class="traveler hidden">
+      <h2 class="welcome-banner"></h2>
         <section class="investment money">
         </section>
         <section class="present trips">
@@ -87,11 +88,8 @@
                 <button class="add-destination-button" id="add-destination-button" type="submit" aria-label="add destination">Add Destination</button>
       </section>
 
-      <footer class="popup hidden">
-        <div class="footer-box">
-          <h2>Click to a book trip!</h2>
-        </div>
-         <form class="booking-form popuptext" for="booking-button" onsubmit="">
+      <section class="booking-area hidden">
+         <form class="booking-form" for="booking-button" onsubmit="">
           <fieldset class="booking">
             <legend>Book a Trip!</legend>
             <p>All fields are required <abbr title="required">*</abbr></p>
@@ -116,7 +114,7 @@
               <button class="booking-button" id="booking-button" type="submit" aria-label="Submit">Submit For Booking</button>
           </fieldset>
         </form>
-      </footer>
+      </section>
     </main> 
   </body>
 </html>

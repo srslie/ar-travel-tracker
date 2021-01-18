@@ -30,7 +30,7 @@ const domUpdates = {
     this.clearDisplay(area)
     let tripsHTML = ''
     if (!tripsList.length) {
-      tripsHTML += `<div class="no-trips">${this.addTripLabel(area)} No trips to display, better book a trip!</div>`
+      tripsHTML += `<div class="no-trips">${this.addTripLabel(area)} <p>No trips to display, better book a trip!</p></div>`
     } else {
       tripsHTML = `${this.addTripLabel(area)}`
       tripsHTML += tripsList.map(trip => this.createCardHtml(trip)).join('')
@@ -45,10 +45,10 @@ const domUpdates = {
       : ''
      return `
         <article class="trip-card ${trip.status}" id="${trip.id}" style="background-image: url(${trip.destination.image});">
+          <div class="trip-title">
+            <h2>Trip to ${trip.destination.name}</h2>
+          </div>
           <div class="card-info">
-            <div class="trip-title">
-              <h2>Trip to ${trip.destination.name}</h2>
-            </div>
             <h3>Status:</h3>
               <p>${trip.status}</p>
             <h3>Start Date:</h3>
@@ -58,7 +58,7 @@ const domUpdates = {
             <h3>Number of Travelers:</h3>
               <p>${trip.travelers}</p>
             ${suggestedActivities}
-          <div class="card-info">
+          </div>
         </article>
         `
   },
@@ -66,22 +66,22 @@ const domUpdates = {
   addTripLabel(area) {
     switch(area) {
       case ('.present'):
-        return '<h2>Present Trips</h2>'
+        return '<h2 class="trips-label">Present Trips</h2>'
         break;
       case ('.upcoming'):
-        return '<h2>Upcoming Trips</h2>'
+        return '<h2 class="trips-label">Upcoming Trips</h2>'
         break;
       case ('.pending'):
-        return '<h2>Pending Trips</h2>'
+        return '<h2 class="trips-label">Pending Trips</h2>'
         break;
       case ('.approved'):
-        return '<h2>Approved Trips</h2>'
+        return '<h2 class="trips-label">Approved Trips</h2>'
         break;
       case ('.rejected'):
-        return '<h2>Rejected Trips</h2>'
+        return '<h2 class="trips-label">Rejected Trips</h2>'
         break;
       case ('.past'):
-        return '<h2>Past Trips</h2>'
+        return '<h2 class="trips-label">Past Trips</h2>'
         break;
     }
   },

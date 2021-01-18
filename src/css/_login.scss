@@ -6,12 +6,22 @@
   padding: 10%;
   align-self: center;
   width: 100%;
+ height: 80vh;
 }
 
 .login-field {
   display: flex;
   flex-direction: column;
-  padding: 15% 15% 0% 10%;
+  padding: 10% 15% 0% 10%;
   justify-content: center;
+  align-content: center;
 }
 
+.login-button {
+  @include buttonStyle($bold-color3)
+}
+
+.login-form {
+  @include formStyle();
+  padding: 2% 5% 5% 5%;
+}
