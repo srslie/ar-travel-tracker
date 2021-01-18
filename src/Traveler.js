@@ -2,11 +2,10 @@ import trips from "../test/trips-test-data";
 
 class Traveler {
   constructor(traveler, trips) {
-    this.id = traveler["id"];
-    this.name = traveler["name"];
-    this.travelerType = traveler["travelerType"]
+    this.id = traveler.id
+    this.name = traveler.name
+    this.travelerType = traveler.travelerType
     this.trips = this.getTrips(trips)
-    this.totalTripSpending = this.calculateTotalTripSpending()
   }
 
   getTrips(trips) {
@@ -14,16 +13,43 @@ class Traveler {
     return userTrips.length ? userTrips : []
   }
 
-  calculateTotalTripSpending() {
+  convertDateToNumber(date) {
+    return date ? parseInt(date.split('/').join('')) : 0
+  }
+
+  getTripsTimeline(today) {
+    let tripTimeline = {
+      currentTrips: [],
+      pastTrips: [],
+      upcomingTrips: []
+    }
+
+    this.trips.forEach(trip => {
+      const todayDateNumber = this.convertDateToNumber(today)
+      const startDateNumber = this.convertDateToNumber(trip.date)
+      const endDateNumber = this.convertDateToNumber(trip.endDate)
+
+      if (todayDateNumber >= startDateNumber && todayDateNumber <= endDateNumber) {
+        tripTimeline.currentTrips.push(trip)
+      } else if (todayDateNumber > endDateNumber) {
+        tripTimeline.pastTrips.push(trip)
+      } else {
+        tripTimeline.upcomingTrips.push(trip)
+      }
+    })
+
+    return tripTimeline
+  }
+
+  calculateTotalTripSpending(today) {
     if (!this.trips.length) {
       return 0
     }
     const approvedTripsThisYear = this.trips.filter(trip => {
       return trip.status === 'approved'
-      && trip.date.split('/')[0] === trip.today.split('/')[0]
+      && trip.date.split('/')[0] === today.split('/')[0]
     })
 
-    // console.log('allUserTrips', this.trips, 'approvedTrips', approvedTripsThisYear)
     const totalCostOfAllApprovedTrips = 
       approvedTripsThisYear.reduce((total, trip) => {
         total += trip.calculateTotalCost() 

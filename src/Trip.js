@@ -1,22 +1,27 @@
 class Trip {
-  constructor(trip, destinations, today) {
-    this.id = trip["id"] || Date.now()
-    this.userID = trip["userID"]
-    this.destination = destinations.find(destination => {
-      return destination.id === trip["destinationID"]
-    }) || trip["destinationID"]
-    this.travelers = trip["travelers"]
-    this.date = trip["date"]
-    this.duration = trip["duration"]
-    this.status = trip["status"] || "pending"
-    this.suggestedActivities = trip["suggestedActivities"]
-    this.today = today
-    // console.log('Today check in constructor with id', this.today, this.id)
-    this.setEndAndYearDates() 
-    this.checkWhen(today)
+  constructor(trip, destinations) {
+    this.id = trip.id || Date.now()
+    this.userID = trip.userID
+    this.getDestination(destinations, trip.destinationID)
+    this.travelers = trip.travelers
+    this.date = trip.date
+    this.duration = trip.duration
+    this.status = trip.status || "pending"
+    this.suggestedActivities = trip.suggestedActivities
+    this.setEndDate() 
   }
   
-  setEndAndYearDates() {
+  getDestination(destinations, destinationID) {
+    const matchingDestination = destinations.find(destination => destination.id === destinationID)
+
+    if (matchingDestination) {
+      this.destination = matchingDestination 
+    } else {
+      this.destination = destinationID
+    }
+  }
+
+  setEndDate() {
     const splitDate = this.date.split('/')
     const dateRearrange = [splitDate[1], splitDate[2], splitDate[0]].join('/')
     const startDate = new Date(dateRearrange)
@@ -25,47 +30,13 @@ class Trip {
     this.endDate = endDate.toLocaleDateString('en-ZA')
   }
 
-  convertDateToNumber(date) {
-    // console.log('Date check in ConvertToNumber', this.today)
-    return date ? parseInt(date.split('/').join('')) : 0
-  }
-
-  checkWhen() {
-    this.isToday = false
-    this.isPast = false
-    this.isUpcoming = false
-
-    const todayDateNumber = this.convertDateToNumber(this.today)
-    const startDateNumber = this.convertDateToNumber(this.date)
-    const endDateNumber = this.convertDateToNumber(this.endDate)
-
-    // console.log('numbers', [todayDateNumber, startDateNumber, endDateNumber])
-
-    if (todayDateNumber >= startDateNumber && todayDateNumber <= endDateNumber) {
-      this.isToday = true
-      return
-    } else if (todayDateNumber > endDateNumber) {
-      this.isPast = true
-      return
-    } else {
-      this.isUpcoming = true
-    }
-  }
-
-  updateStatus(status) {
-    this.status = status
-  }
-
   calculateTotalCost() {
     if (typeof this.destination === "number") {
       return 'This trip requires a valid destination to estimate cost.'
     } else {
-      const lodgingCost = this.destination
-      .calculateCost(this.duration, 'estimatedLodgingCostPerDay')
-      const flightCost = this.destination
-      .calculateCost(this.travelers, 'estimatedFlightCostPerPerson')
-      const totalWithFee = this.destination
-      .calculateFee(lodgingCost + flightCost)
+      const lodgingCost = this.destination.calculateCost(this.duration, 'estimatedLodgingCostPerDay')
+      const flightCost = this.destination.calculateCost(this.travelers, 'estimatedFlightCostPerPerson')
+      const totalWithFee = this.destination.calculateFee(lodgingCost + flightCost)
       return totalWithFee
     }
   }
