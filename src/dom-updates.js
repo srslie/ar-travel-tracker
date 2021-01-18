@@ -14,16 +14,25 @@ const domUpdates = {
 
   displayWelcomeBanner(user) {
     const firstName = user.name.split(' ')[0]
-    const welcomeHTML = `<h2>Welcome ${firstName}!</h2>`
-    this.addDisplay('h2', 'beforeend', welcomeHTML)
+    const welcomeHTML = `Welcome ${firstName}!`
+    this.addDisplay('h2', 'afterbegin', welcomeHTML)
+  },
+
+ createBookingsSelection(destinations) {
+    let selectionHTML = ''
+    destinations.forEach(destination => {
+      selectionHTML += `<option value="${destination.name}">${destination.name}</option>`
+    });
+    this.addDisplay('select', 'beforeend', selectionHTML)
   },
 
   displayTrips(tripsList, area) {
     this.clearDisplay(area)
-    let tripsHTML = `${this.addTripLabel(area)}`
+    let tripsHTML = ''
     if (!tripsList.length) {
-      tripsHTML += `No trips to display, better book a trip!`
+      tripsHTML += `<div class="no-trips">${this.addTripLabel(area)} No trips to display, better book a trip!</div>`
     } else {
+      tripsHTML = `${this.addTripLabel(area)}`
       tripsHTML += tripsList.map(trip => this.createCardHtml(trip)).join('')
     } 
     this.addDisplay( area, 'beforeend', tripsHTML)
@@ -35,18 +44,21 @@ const domUpdates = {
             <p>${trip.suggestedActivities}</p>`
       : ''
      return `
-        <article class="trip-card ${trip.status}" id="${trip.id}">
-          <h2>Trip to: ${trip.destination.destination}</h2>
-          <img class="trip-pic" src=${trip.destination.image} alt=${trip.destination.image}>
-          <h3>Status:</h3>
-            <p>${trip.status}</p>
-          <h3>Start Date:</h3>
-            <p>${trip.date}</p>
-          <h3>Length of Stay:</h3>
-            <p>${trip.duration} days</p>
-          <h3>Number of Travelers:</h3>
-            <p>${trip.travelers}</p>
-          ${suggestedActivities}
+        <article class="trip-card ${trip.status}" id="${trip.id}" style="background-image: url(${trip.destination.image});">
+          <div class="card-info">
+            <div class="trip-title">
+              <h2>Trip to ${trip.destination.name}</h2>
+            </div>
+            <h3>Status:</h3>
+              <p>${trip.status}</p>
+            <h3>Start Date:</h3>
+              <p>${trip.date}</p>
+            <h3>Length of Stay:</h3>
+              <p>${trip.duration} days</p>
+            <h3>Number of Travelers:</h3>
+              <p>${trip.travelers}</p>
+            ${suggestedActivities}
+          <div class="card-info">
         </article>
         `
   },
@@ -74,33 +86,25 @@ const domUpdates = {
     }
   },
 
-  // displayTotalTripSpending(user) {
-  //   this.clearDisplay('.investment')
-  //   let moneyHTML = '<h2>Yearly Travel Investment</h2>'
-  //   if (user.totalTripSpending) {
-  //     moneyHTML += `<p>$${user.calculateTotalTripSpending()}</p>`
-  //   } else {
-  //     moneyHTML = 'Experiences are investments: book a trip!'
-  //   }
-  //   this.addDisplay( '.investment', 'beforeend', moneyHTML)
-  // },
+  displayTotalTripSpending(user, today) {
+    this.clearDisplay('.investment')
+    let moneyHTML = '<h2>Yearly Travel Investment</h2>'
+    const tripTotal = user.calculateTotalTripSpending(today)
+    if (tripTotal) {
+      moneyHTML += `<p>$${tripTotal}</p>`
+    } else {
+      moneyHTML = 'Experiences are investments: book a trip!'
+    }
+    this.addDisplay( '.investment', 'beforeend', moneyHTML)
+  },
 
-  displayTotalMoney(user, incomeOrInvestment) {
+  displayTotalIncome(user) {
     this.clearDisplay('.income')
-
-    let calculation = user.isAgent 
-      ? user.calculateYearlyIncome()
-      : user.calculateTotalTripSpending()
-
-    let emptyPhrase = user.isAgent
-      ? 'Work hard, play hard: book some trips!'
-      : 'Experiences are investments: book a trip!'
-
     let moneyHTML = '<h2>Yearly Travel Income</h2>'
     if (user.totalTripSpending) {
-      moneyHTML += `<p>$${calculation}</p>`
+      moneyHTML += `<p>$${ user.calculateYearlyIncome()}</p>`
     } else {
-      moneyHTML += `${emptyPhrase}`
+      moneyHTML += 'Work hard, play hard: book some trips!'
     }
     this.addDisplay( '.income', 'beforeend', moneyHTML)
   },

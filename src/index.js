@@ -17,6 +17,7 @@ function addEvent(area, eventType, func) {
 }
 
 addEvent('.login-button', 'click', login)
+addEvent('.popup', 'click', popupBookingForm)
 addEvent('.booking-button', 'submit', bookTrip)
 addEvent('.user-search', 'click', searchForUser)
 addEvent('.add-destination-button', 'submit', addDestination)
@@ -44,8 +45,10 @@ function login(event) {
   if (user) {
     domUpdates.toggle(['.login', '.traveler'])
     domUpdates.displayWelcomeBanner(user)
-    domUpdates.displayTotalMoney(user, '.income')
-    displayUserTrips()
+    domUpdates.displayTotalTripSpending(user, todaygit)
+    domUpdates.createBookingsSelection(destinations)
+    domUpdates.toggle(['footer'])
+    displayUserTrips(today)
   } else {
     alert('Sorry, check username and password and try again')
   }
@@ -53,7 +56,7 @@ function login(event) {
 
 function convertDataIntoClassInstances() {
   destinations = destinations.map(destination => new Destination(destination))
-  trips = trips.map(trip => new Trip(trip, destinations, today))
+  trips = trips.map(trip => new Trip(trip, destinations))
   travelers = travelers.map(traveler => new Traveler(traveler, trips))
 }
 
@@ -63,23 +66,31 @@ function findUser() {
   user = travelers.find(traveler => traveler.id === userId)
 }
 
-function displayUserTrips() {
-  createTripCards('isToday','.present')
-  createTripCards('isUpcoming', '.upcoming')
-  createTripCards('isPast', '.past')
+function displayUserTrips(today) {
+  const tripsTimeline = user.getTripsTimeline(today)
+  domUpdates.displayTrips(tripsTimeline.currentTrips, '.present')
+  domUpdates.displayTrips(tripsTimeline.upcomingTrips, '.upcoming')
+  domUpdates.displayTrips(tripsTimeline.pastTrips, '.past')
 
   const pendingTrips = user.trips.filter(trip => trip.status === 'pending')
   domUpdates.displayTrips(pendingTrips, '.pending')
 }
 
-function createTripCards(condition, area) {
-  const tripsList = user.trips.filter(trip => trip[condition])
-  domUpdates.displayTrips(tripsList, area)
+function popupBookingForm(event) {
+  event.preventDefault()
+  document.querySelector(".popup")
+  domUpdates.toggle(['footer', 'footer-box'])
 }
 
 function bookTrip(event) {
   event.preventDefault()
+  const startDateInput = document.querySelector('#destinations').value
+  const durationInput = document.querySelector('#destinations').value
+  const numTravelersInput = document.querySelector('#destinations').value
+  const destinations = document.querySelector('#destinations').value
 
+  postDestination()
+  domUpdates.toggle(['footer'])
 }
 
 function searchForUser() {

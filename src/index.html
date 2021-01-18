@@ -3,24 +3,27 @@
   <head>
     <meta charset="utf-8">
     <title>Webpack Starter Kit</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Poppins&display=swap" rel="stylesheet">
   </head>
   <body>
-    <header>
-      <h1>Travel Tracker</h1>
-      <h2 class="welome-banner"></h2>
+    <header class="sticky">
+    <div class="welcome-wrapper">
+      <h2 class="welcome-banner"></h2>
+    </div>  
+   
+      <h1 class="page-title">Travel Tracker</h1>
     </header> 
-
+  
     <main>
       <section class="login">
+        <svg class="airplane" url="src/images/airplane.svg" alt="airplane"aria="hidden">
+        </svg>
         <form class="login-form" for="login-button" onsubmit="">
-          <fieldset>
+          <fieldset class="login-field">
             <legend>Login</legend>
             <label for="username">Username<strong><abbr title="required">*</abbr></strong>
             </label>
-            <input class="username" type="text" required>
-            <label for="password">Password<strong><abbr title="required">*</abbr></strong>
+            <input class="username" type="text" required><br>
+            <label for="password">Password <strong><abbr title="required">*</abbr></strong>
             </label>
             <input class"password" type="password" id="password" required>
             <button class="login-button" type="submit">Go to Trips!</button>
@@ -35,34 +38,6 @@
         </section>
         <section class="upcoming trips">
         </section>
-
-        <form class="booking-form" for="booking-button" onsubmit="">
-          <fieldset>
-            <legend>Book a Trip!</legend>
-            <p>All fields are required <abbr title="required">*</abbr></p>
-              
-              <label for="start-date">Start Date<strong><abbr title="required">*</abbr></strong>
-              <em>formatted as mm/dd/yyyy</em>
-              </label>
-              <input class="start-date" type="date" id="date" name="start-date" min="">
-
-              <label for="duration">Nights Stayed<abbr title="required"aria-label="required">*</abbr>
-              </label>
-              <input class="duration" type="number" id="duration"name="duration" min='1' max='365' placeholder="5...">
-            
-              <label for="num-travelers">Number of Travelers<abbr title="required" aria-label="required">*</abbr>
-              </label>
-              <input class="num-travelers" type="number"id="num-travelers" name="num-travelers" min='1' max='100' placeholder="3...">
-
-              <label for="destinations">Choose Your Destination<abbr title="required" aria-label="required">*</abbr>
-              </label>
-              <select id="destinations" placeholder="Paradise At...">
-              </select>
-            
-              <button class="booking-button" id="booking-button" type="submit" aria-label="Submit">Submit For Booking</button>
-          </fieldset>
-        </form>
-
         <section class="pending trips">
         </section>
         <section class="past trips">
@@ -84,7 +59,7 @@
           <form class="user-search" for="user-search" onsubmit="">
             <legend>Search For Client</legend>
               <label for="user-search" aria-label="search for user">Name</label>
-              <input class="user-search-input" name="user-search-input" id="user-search-input" type="text" placeholder="WhatsTheirName...">
+              <input class="user-search-input" name="user-search-input" id="user-search-input" type="text" placeholder="WhatsTheirName..."><br>
               <button class="user-search" type="button" .>Search</button>
           </form>
           <article class="user-search-results">
@@ -99,19 +74,49 @@
               <legend>Add a Destination</legend>
               <p>All fields are required <abbr title="required">*</abbr></p>
                 <label for="destinations">Destination Name<abbr title="required" aria-label="required">*</abbr>
-                </label>
-                <input class="destination-name" type="text" name="destination-name" id="destination-name" placeholder="Anyplace, Anywhere...">
+                </label><br>
+                <input class="destination-name" type="text" name="destination-name" id="destination-name" placeholder="Anyplace, Anywhere..."><br>
 
                 <label for="lodging-per-day">Estimated Lodging Cost in Dollars per Day<abbr title="required" aria-label="required">*</abbr>
-                </label>
-                <input class="lodging-per-day" type="number" id="lodging-per-day" name="lodging-per-day" min='1' max='10000' placeholder="99...">
+                </label><br>
+                <input class="lodging-per-day" type="number" id="lodging-per-day" name="lodging-per-day" min='1' max='10000' placeholder="99..."><br>
               
-                <label for="flight-per-person">Estimated Flight Cost in Dollars per Person<abbr title="required" aria-label="required">*</abbr>
-                </label>
-                <input class="flight-per-person" type="number" id="flight-per-person" name="flight-per-person" min='1' max='100000' placeholder="125...">
+                <label for="flight-per-person" title="required" aria-label="required">Estimated Flight Cost in Dollars per Person*><br>
+                <input class="flight-per-person" type="number" id="flight-per-person" name="flight-per-person" min='1' max='100000' placeholder="125..."><br>
 
                 <button class="add-destination-button" id="add-destination-button" type="submit" aria-label="add destination">Add Destination</button>
       </section>
+
+      <footer class="popup hidden">
+        <div class="footer-box">
+          <h2>Click to a book trip!</h2>
+        </div>
+         <form class="booking-form popuptext" for="booking-button" onsubmit="">
+          <fieldset class="booking">
+            <legend>Book a Trip!</legend>
+            <p>All fields are required <abbr title="required">*</abbr></p>
+              
+              <label for="start-date">Start Date<abbr title="required">*</abbr>
+              </label>
+              <input class="start-date" type="date" id="date" name="start-date" min="">
+
+              <label for="duration">Nights Stayed<abbr title="required"aria-label="required">*<abbr>
+              </label>
+              <input class="duration" type="number" id="duration"name="duration" min='1' max='365' placeholder="5...">
+            
+              <label for="num-travelers">Number of Travelers<abbr title="required" aria-label="required">*</abbr>
+              </label>
+              <input class="num-travelers" type="number"id="num-travelers" name="num-travelers" min='1' max='100' placeholder="3...">
+
+              <label for="destinations">Choose Your Destination<abbr title="required" aria-label="required">*</abbr>
+              </label>
+              <select id="destinations" placeholder="Paradise At...">
+              </select>
+            
+              <button class="booking-button" id="booking-button" type="submit" aria-label="Submit">Submit For Booking</button>
+          </fieldset>
+        </form>
+      </footer>
     </main> 
   </body>
 </html>
