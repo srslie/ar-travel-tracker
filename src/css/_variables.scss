@@ -18,9 +18,9 @@ $muted-color3: #F4FAFE;
 //   }
 // }
 
-@mixin hover() {
-  background-color: $bold-color2;
-}
+// @mixin hover() {
+//   background-color: $bold-color2;
+// }
 
 // @mixin shadowStyle() {
 //   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -50,3 +50,40 @@ $muted-color3: #F4FAFE;
 //   border-radius: 5px;
 //   width: 100%;
 // }
+
+.shadow {
+  -webkit-box-shadow: 3px 3px 5px 6px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  -moz-box-shadow:    3px 3px 5px 6px #ccc;  /* Firefox 3.5 - 3.6 */
+  box-shadow:         3px 3px 5px 6px #ccc;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: $muted-color2;
+  height: auto;
+
+  input {
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+  }
+
+  button {
+    display: flex;
+    justify-content: center;
+    width: 40%;
+    align-self: center;
+    margin: 15%;
+  }
+}
+
+button {
+  border: 1px solid black;
+  background-color: $muted-color1;
+  color: $bold-color5;
+  padding: 10px;
+  display: block;
+  border-radius: 10px;
+}

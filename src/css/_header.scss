@@ -1,11 +1,32 @@
+@import "variables";
+
 header {
-
-}
-
-h1 {
-
+  display: flex;
+  flex-direction: column;
+  height: 20vh;
+  width: 100%;
+  top: 0;
+  background-color: $bold-color2;
 }
 
 .welcome-banner {
-  
+  display: flex;
+  color: $muted-color1;
+  align-self: flex-end;
+  background-image: $bold-color2;
+  top: 0px;
+  right: 0px;
+   -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+     transform: rotate(45deg);
 }
+
+// .welcome-wrapper {
+
+// 	margin: 0 auto;
+//   right: 0px;
+//   top: 0px;
+//    -webkit-transform: rotate(45deg);
+//     -moz-transform: rotate(45deg);
+//      transform: rotate(45deg);
+// }

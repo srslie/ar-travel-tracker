@@ -1,9 +1,56 @@
-.trips {
+@import "variables";
 
-  button {
-    // @import buttonStyling() 
-    background-color: $bold-color4;
-    color: $muted-color1;
+.traveler {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.no-trips {
+  align-items: center;
+  justify-content: center;
+  background-color:$muted-color3;
+  //  height: 20%;
+   width: auto;
+   border-radius: 50%;
+   padding: 90px 90px 90px 90px;
+}
+
+.trip-card {
+  border: 1px solid black;
+  box-shadow: 10px, 10px, 10px, $bold-color2;
+  display: flex;
+  flex-wrap: column;
+  align-items: baseline;
+  justify-content: space-around;
+
+   .trip-title {
+    background-color: $bold-color2;
+    color: white;
+    height: 10%;
+    width: auto;
+    border-radius: 5%;
+    padding: 30px 90px 30px 90px;
+    box-shadow: 10px, 10px, 10px, black;
   }
- 
+
+  .card-info {
+    display: column;
+    background-color: $muted-color3;
+    padding: 2%;
+    border-radius: 10px;
+    height: 100%;
+    width: 70vh;
+    align-items: flex-end;
+     
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  img {
+    border-radius: 8px;
+    max-width: 100%;
+    height: 100px;
+  }
+
 }

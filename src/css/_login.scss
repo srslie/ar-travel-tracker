@@ -1,12 +1,17 @@
-.login {
-   @include formStyle(50px);
-  
+@import "variables";
 
-  button {
-    //@import buttonStyling(); 
-    background-color: $bold-color4;
-    color: $muted-color1;
-    // @import hoverShadow(button)
-  }
+.login {
+  flex-direction: column;
+  justify-content: center;
+  padding: 10%;
+  align-self: center;
+  width: 100%;
+}
+
+.login-field {
+  display: flex;
+  flex-direction: column;
+  padding: 15% 15% 0% 10%;
+  justify-content: center;
 }
 

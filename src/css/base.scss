@@ -8,39 +8,44 @@
 @import "booking-form";
 @import "client-interaction";
 @import "add-destination-form";
+@import "icons";
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Poppins&display=swap");
 
 * {
   font-family: $primary-font;
 }
 
-h2, h3 {
-  font-family: $secondary-font;
-}
-
-// .trip-card {
-//   // @import box-shadow(10px, 10px, 10px, $bold-color2)
-//   box-shadow: 10px, 10px, 10px, $bold-color2
-// }
-
-button {
-  border: 1px solid black;
-  @include hover();
-}
-
 .hidden {
   display: none;
 }
 
-.abbr {
-  border: none; 
+.sticky {
+  position: fixed;
 }
 
-.section {
-  padding: 10px;
+h1, h2 {
+  font-family: $secondary-font;
 }
 
-.trip-card {
-  border: 1px solid black;
-  box-shadow: 10px, 10px, 10px, $bold-color2
+main {
+  padding-top: 20vh;
+  display: flex;
+  flex-direction: column;
 }
+
+label {
+  border: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
