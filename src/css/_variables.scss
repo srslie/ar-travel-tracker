@@ -1,7 +1,7 @@
 $primary-font:'Open Sans', sans-serif;
 $secondary-font: 'Poppins', sans-serif;
 
-$primary-background: #067BC1;
+$bold-color1: #067BC1;
 $bold-color2: #85BCDA;
 $bold-color3: #EBC405;
 $bold-color4: #F37848;
@@ -10,30 +10,36 @@ $muted-color1: #FEEAEE;
 $muted-color2: #E1F1C3;
 $muted-color3: #F4FAFE;
 
-// @mixin hoverShadow($element) {
-//   $element:hover {
-//      box-shadow: 10px 10px 5px $bold-color5;
+// @mixin hoverShadow(element) {
+//   #{element}: {
+//       &:hover {
+//       box-shadow: 10px 10px 5px $bold-color5;
+//     }
 //   }
 // }
 
-@mixin shadowStyle() {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
+// @mixin hover() {
+//   background-color: $bold-color2;
+// }
 
-@mixin formStyle() {
-  padding: 10px;
-  margin:10px 0;
-  border: 2px solid $bold-color2;
-  border-radius:10px;
-  width:100%;
+// @mixin shadowStyle() {
+//   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+// // }
 
-  input, textarea {
-    font-family: inherit;
-    font-size: inherit;
-    resize: vertical;
-  }
+// @mixin formStyle($padding) {
+//   padding: $padding;
+//   margin:10px 0;
+//   border: 2px solid $bold-color2;
+//   border-radius:10px;
+//   width:100%;
+//   background-color: $bold-color3;
 
-}
+//   input, textarea {
+//     font-family: inherit;
+//     font-size: inherit;
+//     resize: vertical;
+//   }
+// }
 
 // @mixin buttonStyling() {
 //   appearance: none;
@@ -44,3 +50,67 @@ $muted-color3: #F4FAFE;
 //   border-radius: 5px;
 //   width: 100%;
 // }
+@mixin boxShadow() {
+  box-shadow: 0 1px 1px rgba(0,0,0,0.12), 
+              0 2px 2px rgba(0,0,0,0.12), 
+              0 4px 4px rgba(0,0,0,0.12), 
+              0 8px 8px rgba(0,0,0,0.12),
+              0 16px 16px rgba(0,0,0,0.12);
+}
+
+.shadow {
+  -webkit-box-shadow: 3px 3px 5px 6px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  -moz-box-shadow:    3px 3px 5px 6px #ccc;  /* Firefox 3.5 - 3.6 */
+  box-shadow:         3px 3px 5px 6px #ccc;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+}
+
+@mixin formStyle() {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: auto;
+ @include boxShadow()
+  padding: 2em;
+  border-radius: 10px;
+  background-color: white;
+
+  input {
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+  }
+
+  button {
+    display: flex;
+    justify-content: center;
+    width: 40%;
+    align-self: center;
+    margin: 15%;
+  }
+
+  legend {
+    padding: 1em;
+    font-family: $secondary-font;
+    font-size: 1.5em;
+    margin: auto;
+  }
+
+  fieldset {
+    border: none;
+    
+  }
+}
+
+@mixin buttonStyle($color) {
+  font-family: $secondary-font;
+  border: 1px solid black;
+  background-color: $color;
+  padding: 10px;
+ @include boxShadow()
+  // display: block;
+ @include roundedCorners()
+}
+
+@mixin roundedCorners() {
+  border-radius: 10px;
+}

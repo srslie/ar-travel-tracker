@@ -6,8 +6,9 @@ Once travel is back in the books, let us help book those books for you. The [Tra
 
 Travelers can:
 - Login using
-    ```username: traveler50 (where 50 is the ID of the user)
-       password: travel2020
+    ```
+    username: traveler50
+    password: travel2020
     ```
 - See user dashboard when logging in including
   - All trips (past, present, upcoming, and pending)

@@ -1,6 +1,6 @@
+@import "variables";
 @import "normalize";
 @import "media-queries";
-@import "variables";
 @import "header";
 @import "login";
 @import "money";
@@ -8,8 +8,45 @@
 @import "booking-form";
 @import "client-interaction";
 @import "add-destination-form";
+@import "icons";
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Poppins&display=swap");
+
+* {
+  font-family: $primary-font;
+}
 
 .hidden {
   display: none;
 }
+
+.sticky {
+  position: fixed;
+}
+
+h1, h2 {
+  font-family: $secondary-font;
+}
+
+main {
+  padding-top: 20vh;
+  display: flex;
+  flex-direction: column;
+  background-color: $muted-color3;
+}
+
+label {
+  border: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

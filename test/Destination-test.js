@@ -8,11 +8,11 @@ describe('Destination', function() {
   let lima, stockholm, sydney, cartagena, madrid
 
   beforeEach(function() {
-    lima = new Destination(destinations["destinations"][0])
-    stockholm = new Destination(destinations["destinations"][1]) 
-    sydney = new Destination(destinations["destinations"][2])
-    cartagena = new Destination(destinations["destinations"][3]) 
-    madrid = new Destination(destinations["destinations"][4]) 
+    lima = new Destination(destinations.destinations[0])
+    stockholm = new Destination(destinations.destinations[1]) 
+    sydney = new Destination(destinations.destinations[2])
+    cartagena = new Destination(destinations.destinations[3]) 
+    madrid = new Destination(destinations.destinations[4]) 
   });
 
   it('should be a function', function() {
@@ -25,7 +25,7 @@ describe('Destination', function() {
 
   it('should have properties', function() {
     expect(lima.id).to.equal(1)
-    expect(stockholm.destination).to.equal("Stockholm, Sweden")
+    expect(stockholm.name).to.equal("Stockholm, Sweden")
     expect(sydney.estimatedLodgingCostPerDay).to.equal(130)
     expect(sydney.estimatedFlightCostPerPerson).to.equal(950)
     expect(madrid.image).to.equal("https://images.unsplash.com/photo-1543785734-4b6e564642f8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80")

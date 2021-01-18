@@ -1,3 +1,19 @@
+@import "variables";
+
 .money {
-  
+  border: solid 2px $bold-color5;
+  @include boxShadow()
+  display: flex;
+  align-self: center;
+  justify-content: space-evenly;
+  align-content: center;
+  padding: 1em;
+  margin: 1em;
+  margin-bottom: 2em;
+  @include roundedCorners()
+
+  h2, p {
+    align-self: center;
+    margin: 1em;
+  }
 }

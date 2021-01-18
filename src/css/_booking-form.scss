@@ -1,3 +1,19 @@
+.display-booking-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  @include buttonStyle($bold-color3)
+  width: 20vh;
+  padding-bottom: 1.5em;
+
+  img {
+    align-self: center;
+    margin-bottom: -1.5em;
+  }
+
+}
+
 .booking-form {
   // @import formStyle();
   
@@ -6,13 +22,42 @@
     padding: 10px;
     border-radius: 10px;
   }
-
-  // button {
-  //   @import buttonStyling(); 
-  //   background-color: $bold-color4;
-  //   color: $muted-color1;
-  // }
 }
 
+.booking {
+  background-color: $bold-color3;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  // bottom: 0;
+  // right: 0;
+  justify-content: center;
+  height: auto;
+  width: 20vh;
+  height: 80vh;
+  padding: 2em;
 
+  select {
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+  }
 
+  input {
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+  }
+
+  button {
+    @include buttonStyle($bold-color1)
+    // display: flex;
+    // justify-content: center;
+    // width: 100%;
+    // align-self: center;
+    // margin: 15%;
+    // background-color: $bold-color1;
+    // font-family: $secondary-font;
+    // color: white;
+  }
+}

@@ -36,7 +36,6 @@ describe('Traveler', function() {
     expect(rachael.name).to.equal("Rachael Vaughten")
     expect(sibby.travelerType).to.equal("shopper")
     expect(sibby.trips).to.deep.equal([])
-    expect(tiffy.totalTripSpending).to.equal(0)
   });
 
   it('should display trips a user has taken', function() {
@@ -46,10 +45,25 @@ describe('Traveler', function() {
   });
 
   it('should calculate total user spending on trips', function() {
-    expect(ham.calculateTotalTripSpending()).to.equal(8635)
-    expect(rachael.calculateTotalTripSpending()).to.equal(0)
-    expect(leila.calculateTotalTripSpending()).to.equal(1056)
-    expect(sibby.calculateTotalTripSpending()).to.equal(0)
+    expect(ham.calculateTotalTripSpending("2020/12/25")).to.equal(8635)
+    expect(rachael.calculateTotalTripSpending("2020/12/25")).to.equal(0)
+    expect(leila.calculateTotalTripSpending("2020/12/25")).to.equal(0)
+    expect(sibby.calculateTotalTripSpending("2020/12/25")).to.equal(0)
   })
+
+  it('should convert a date to a number', function() {
+    expect(ham.convertDateToNumber("2020/12/25")).to.equal(20201225)
+    expect(leila.convertDateToNumber("1990/01/01")).to.equal(19900101)   
+  });
  
+  it('should return object with arrays of upcoming, past, and current trips', function() {
+    const rachaelsCurrentTrips = rachael.getTripsTimeline("2019/09/16").currentTrips
+    expect(rachaelsCurrentTrips).to.deep.equal([])
+
+    const numberHamsPastTrips = ham.getTripsTimeline("2020/05/22").pastTrips.length
+    expect(numberHamsPastTrips).to.equal(2)
+
+    const keysTripsTimeline = Object.keys(sibby.getTripsTimeline("2020/05/22"))
+    expect(keysTripsTimeline).to.deep.equal(['currentTrips', 'pastTrips', 'upcomingTrips'])
+  });
 });

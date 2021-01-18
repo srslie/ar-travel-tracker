@@ -1,3 +1,5 @@
+@import "variables";
+
 @media only screen and (max-width: 1100px) {
 
 
@@ -5,10 +7,30 @@
 
 
 @media only screen and (max-width: 750px) {
+ .trips-and-booking {
+  display: flex;
+  flex-direction: column;
+  width: 80vh;
+  }
 
+  .sidecolumn {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+  }
+  
+  .booking {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+  }
 
 }
 
 @media only screen and (max-width: 450px) {
-
+ .trips-and-booking {
+  display: flex;
+  flex-direction: column;
+  width: 80vh;
+  }
 }
