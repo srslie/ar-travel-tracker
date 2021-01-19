@@ -14,7 +14,7 @@ let trips = [];
 let destinations = [];
 let user, today;
 
-window.addEventListener("load", loadPage);
+window.addEventListener("load", getPageData);
 
 function addEvent(area, eventType, func) {
   document.querySelector(area).addEventListener(eventType, func)
@@ -28,7 +28,10 @@ addEvent('.user-search', 'click', searchForUser)
 addEvent('.add-destination-form', 'submit', addDestination)
 addEvent('.user-search-results', 'click', reviewTrips)
 
-function loadPage(event) {
+function getPageData(event) {
+  travelers = [];
+  trips = [];
+  destinations = [];
   getData('travelers', travelers),
   getData('trips', trips),
   getData('destinations', destinations)
@@ -39,18 +42,19 @@ function login(event) {
   getToday()
   convertDataIntoClassInstances()
 
-  const username = document.querySelector('.username').value
-  if (username === 'agent') {
-    user = new Agent
-    domUpdates.toggle(['.login', '.traveler', '.display-booking-button'])
+  const username = document.querySelector('#username').value
+  const password = document.querySelector('#password').value
 
-  } else if (username.includes('traveler')) {
+  if (username === 'agency' && password === 'travel2020') {
+    user = new Agent
+    domUpdates.toggle(['.login', '.travel-agent'])
+  } else if (username.includes('traveler') && password === 'travel2020') {
     findUser(username)
     domUpdates.toggle(['.login', '.traveler', '.display-booking-button'])
     displayUserDashboard(user)
   } else {
     alert('Sorry, check username and password and try again')
-    setTimeout(loadPage, 3000)
+    setTimeout(getPageData, 1000)
   }
 }
 
@@ -64,6 +68,7 @@ function getToday() {
 
 function convertDataIntoClassInstances() {
   destinations = destinations.map(destination => new Destination(destination))
+  // console.log('INSTANTIATION', destinations)
   trips = trips.map(trip => new Trip(trip, destinations))
   travelers = travelers.map(traveler => new Traveler(traveler, trips))
 }
@@ -99,12 +104,10 @@ function bookTrip(event) {
   event.preventDefault()
 
   let startDateInput = document.querySelector('#date').value
+  startDateInput = startDateInput.replaceAll('-', '/')
   const durationInput = document.querySelector('#duration').value
   const numTravelersInput = document.querySelector('#num-travelers').value
   let destinationsInput = document.querySelector('#destinations').value
-
-  startDateInput = startDateInput.replaceAll('-', '/')
-  
   destinationsInput = destinations.find(destination => 
     (destination.name === destinationsInput)).id
 
@@ -119,7 +122,10 @@ function bookTrip(event) {
     suggestedActivities: []
   }
 
-  Promise.resolve(postData('trips', postTripBody))
+  // travelers = [];
+  // trips = [];
+  // destinations = [];
+  return Promise.resolve(postData('trips', postTripBody))
     .then(() => {
       refreshUserData(user)
       const newTrip = new Trip(postTripBody, destinations)
@@ -184,15 +190,15 @@ function rejectTrip(tripId) {
 }
 
 function refreshUserData(userData) {
-  Promise.all([
+  return Promise.all([
     getData('travelers', travelers),
     getData('trips', trips),
     getData('destinations', destinations)
   ])
-    .then(() => {
-      user = travelers.find(traveler => traveler.id === userData.id)
+    .then((response) => {
       convertDataIntoClassInstances()
+      // console.log('REFRESHME', travelers, trips, destinations)
+      user = travelers.find(traveler => traveler.id === userData.id)
       displayUserDashboard(user)
-      console.log('WE REFRESH THIS', user.trips)
   })
 }
