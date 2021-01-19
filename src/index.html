@@ -90,15 +90,18 @@
         <section class="client-interaction">
           <form class="user-search-form" for="user-search" onsubmit="">
             <legend>Search For Client</legend>
+
               <label for="user-search" aria-label="search for user">Name</label>
               <input class="user-search-input" name="user-search-input" id="user-search-input" type="text" placeholder="WhatsTheirName..."><br>
               
               <button class="user-search" type="submit">Search</button>
           </form>
+
           <article class="user-search-results">
           </article>
           <article class="client-trips">
           </article>
+
         </section>
 
 
@@ -114,16 +117,21 @@
                 </label><br>
                 <input class="lodging-per-day" type="number" id="lodging-per-day" name="lodging-per-day" min='1' max='10000' placeholder="99..."><br>
               
-                <label for="flight-per-person" title="required" aria-label="required">Estimated Flight Cost in Dollars per Person *><br>
+                <label for="flight-per-person" title="required" aria-label="required">Estimated Flight Cost in Dollars per Person *></label><br>
                 <input class="flight-per-person" type="number" id="flight-per-person" name="flight-per-person" min='1' max='100000' placeholder="125..."><br>
 
-                <label for="destination-image" title="required" aria-label="required">Destination Image *><br>
+                <label for="destination-image" title="required" aria-label="required">Destination Image *></label><br>
                 <input class="destination-image" type="text" id="destination-image" name="destination-image" placeholder="http://someImagePath..."><br>
 
-                <label for="alt-image" title="required" aria-label="required">Image alternative description *><br>
+                <label for="alt-image" title="required" aria-label="required">Image alternative description *></label><br>
                 <input class="alt-image" type="text" id="alt-image" name="alt-image" placeholder="Beaches and buildings..."><br>
 
                 <button class="add-destination-button" id="add-destination-button" type="submit" aria-label="add destination">Add Destination</button>
+          
+
+          <article class="new-destination-confirmation">
+          </article>
+
       </section>
 
     </main> 
