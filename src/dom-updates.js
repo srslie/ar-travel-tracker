@@ -102,6 +102,12 @@ const domUpdates = {
     ])
   },
 
+  confirmNewDestination(newDestination) {
+    this.clearDisplay('.new-destination-confirmation')
+    let confirmationHTML = `Successfulled added new destination of ${newDestination.name}, with estimated lodging cost of $${newDestination.estimatedLodgingCostPerDay} per day, with estimated flight cost of ${newDestination.estimatedFlightCostPerPerson} per person round trip, to the selection of possible place for your clients to travel!`
+    this.addDisplay('.new-destination-confirmation', 'beforeend', confirmationHTML)
+  },
+
   displayTotalTripSpending(user, today) {
     this.clearDisplay('.investment')
     let moneyHTML = '<h2>Yearly Travel Investment</h2>'
