@@ -8,7 +8,10 @@ export function getData(database, localArray) {
       localArray.push(dataObject)
     })
   })
-  .catch(error => alert(`Sorry, there is an error: ${error}`))
+  .catch(error => {
+    console.log('FETCH GET ERROR', error)
+    alert(`Sorry, there was an error loading the page!`)
+  })
 }
 
 // post to 'trips'
@@ -30,7 +33,10 @@ export function postData(database, bodyPost) {
   }
   fetch(`http://localhost:3001/api/v1/${database}`, settings)
   .then(response => response.json())
-  .catch(error => alert(`Sorry, there is an error: ${error}`))
+  .catch(error => {
+    console.log('FETCH POST ERROR', error)
+    alert(`Sorry, there was an error submitting your data!`)
+  })
 }
 
 export function deleteTrip(tripId) {
@@ -41,5 +47,8 @@ export function deleteTrip(tripId) {
     }
   }
   fetch(`http://localhost:3001/api/v1/trips/${tripId}`, settings)
-  .catch(error => alert(`Sorry, there is an error: ${error}`))
+  .catch(error => {
+    console.log('FETCH DELETE ERROR', error)
+    alert(`Sorry, there is an error deleting this trip!`)
+  })
 }

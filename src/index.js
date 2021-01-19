@@ -44,8 +44,15 @@ function getToday() {
 function login(event) {
   event.preventDefault()
   convertDataIntoClassInstances()
-  findUser()
-  if (user) {
+
+  const username = document.querySelector('#username').value
+  const password = document.querySelector('#password').value
+
+  if (username === 'agency' && password === 'travel2020') {
+    user = new Agent
+    domUpdates.toggle(['.login', '.travel-agent'])
+  } else if (username.includes('traveler') && password === 'travel2020') {
+    findUser(username)
     domUpdates.toggle(['.login', '.traveler', '.display-booking-button'])
     domUpdates.displayWelcomeBanner(user)
     domUpdates.displayTotalTripSpending(user, today)
@@ -138,8 +145,9 @@ function refreshData() {
     getData('trips', trips),
     getData('destinations', destinations)
   ])
-  .then(data => {
-    convertDataIntoClassInstances()
-    displayTrips()
+    .then(() => {
+      user = travelers.find(traveler => traveler.id === userData.id)
+      convertDataIntoClassInstances()
+      displayUserDashboard(user)
   })
 }
