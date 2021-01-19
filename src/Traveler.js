@@ -24,12 +24,14 @@ class Traveler {
       upcomingTrips: []
     }
 
-    this.trips.forEach(trip => {
+    const approvedTrips = this.trips.filter(trip => trip.status === 'approved')
+    approvedTrips.forEach(trip => {
       const todayDateNumber = this.convertDateToNumber(today)
       const startDateNumber = this.convertDateToNumber(trip.date)
       const endDateNumber = this.convertDateToNumber(trip.endDate)
 
-      if (todayDateNumber >= startDateNumber && todayDateNumber <= endDateNumber) {
+      if (todayDateNumber >= startDateNumber 
+        && todayDateNumber <= endDateNumber) {
         tripTimeline.currentTrips.push(trip)
       } else if (todayDateNumber > endDateNumber) {
         tripTimeline.pastTrips.push(trip)

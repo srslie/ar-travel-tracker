@@ -29,7 +29,11 @@ export function postData(database, bodyPost) {
     body: JSON.stringify(bodyPost)
   }
   fetch(`http://localhost:3001/api/v1/${database}`, settings)
-  .then(response => response.json())
+  .then(response => {
+    const responseParsed = response.json()
+    console.log(responseParsed)
+    return responseParsed;
+  })
   .catch(error => alert(`Sorry, there is an error: ${error}`))
 }
 

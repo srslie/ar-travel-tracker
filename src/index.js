@@ -6,6 +6,7 @@ import domUpdates from './dom-updates';
 import Traveler from './Traveler';
 import Trip from './Trip';
 import Destination from './Destination';
+import Agent from './Agent';
 import {getData, postData, deleteTrip} from './apis';
 
 let travelers = [];
@@ -21,16 +22,36 @@ function addEvent(area, eventType, func) {
 
 addEvent('.login-button', 'click', login)
 addEvent('.display-booking-button', 'click', displayBookingForm)
-addEvent('.booking-button', 'submit', bookTrip)
+addEvent('.booking-form', 'submit', bookTrip)
+addEvent('.booking-exit-button', 'click', displayBookingForm)
 addEvent('.user-search', 'click', searchForUser)
-addEvent('.add-destination-button', 'submit', addDestination)
+addEvent('.add-destination-form', 'submit', addDestination)
 addEvent('.user-search-results', 'click', reviewTrips)
 
 function loadPage(event) {
-    getData('travelers', travelers),
-    getData('trips', trips),
-    getData('destinations', destinations)
-    getToday()
+  getData('travelers', travelers),
+  getData('trips', trips),
+  getData('destinations', destinations)
+}
+
+function login(event) {
+  event.preventDefault()
+  getToday()
+  convertDataIntoClassInstances()
+
+  const username = document.querySelector('.username').value
+  if (username === 'agent') {
+    user = new Agent
+    domUpdates.toggle(['.login', '.traveler', '.display-booking-button'])
+
+  } else if (username.includes('traveler')) {
+    findUser(username)
+    domUpdates.toggle(['.login', '.traveler', '.display-booking-button'])
+    displayUserDashboard(user)
+  } else {
+    alert('Sorry, check username and password and try again')
+    setTimeout(loadPage, 3000)
+  }
 }
 
 function getToday() {
@@ -41,59 +62,71 @@ function getToday() {
     .setAttribute('min', todayForCalendarMin);
 }
 
-function login(event) {
-  event.preventDefault()
-  convertDataIntoClassInstances()
-  findUser()
-  if (user) {
-    domUpdates.toggle(['.login', '.traveler', '.display-booking-button'])
-    domUpdates.displayWelcomeBanner(user)
-    domUpdates.displayTotalTripSpending(user, today)
-    domUpdates.createBookingsSelection(destinations)
-    displayUserTrips(today)
-  } else {
-    alert('Sorry, check username and password and try again')
-  }
-}
-
 function convertDataIntoClassInstances() {
   destinations = destinations.map(destination => new Destination(destination))
   trips = trips.map(trip => new Trip(trip, destinations))
   travelers = travelers.map(traveler => new Traveler(traveler, trips))
 }
 
-function findUser() {
-  const username = document.querySelector('.username').value
+function findUser(username) {
   const userId = parseInt(username.slice(8))
   user = travelers.find(traveler => traveler.id === userId)
 }
 
+function displayUserDashboard(user) {
+  domUpdates.displayWelcomeBanner(user)
+  domUpdates.displayTotalTripSpending(user, today)
+  domUpdates.createBookingsSelection(destinations)
+  displayUserTrips(today)
+}
+
 function displayUserTrips(today) {
+  const pendingTrips = user.trips.filter(trip => trip.status === 'pending')
+  domUpdates.displayTrips(pendingTrips, '.pending-trips')
+
   const tripsTimeline = user.getTripsTimeline(today)
   domUpdates.displayTrips(tripsTimeline.currentTrips, '.present')
   domUpdates.displayTrips(tripsTimeline.upcomingTrips, '.upcoming')
-  domUpdates.displayTrips(tripsTimeline.pastTrips, '.past')
-
-  const pendingTrips = user.trips.filter(trip => trip.status === 'pending')
-  domUpdates.displayTrips(pendingTrips, '.pending')
+  domUpdates.displayTrips(tripsTimeline.pastTrips, '.past') 
 }
 
 function displayBookingForm(event) {
-  event.preventDefault()
-  
+  event.preventDefault()  
   domUpdates.toggle(['.booking-area'])
-  console.log('hello', document.querySelector('.booking-area'))
 }
 
 function bookTrip(event) {
   event.preventDefault()
-  const startDateInput = document.querySelector('#destinations').value
-  const durationInput = document.querySelector('#destinations').value
-  const numTravelersInput = document.querySelector('#destinations').value
-  const destinations = document.querySelector('#destinations').value
 
-  postDestination()
-  domUpdates.toggle(['footer'])
+  let startDateInput = document.querySelector('#date').value
+  const durationInput = document.querySelector('#duration').value
+  const numTravelersInput = document.querySelector('#num-travelers').value
+  let destinationsInput = document.querySelector('#destinations').value
+
+  startDateInput = startDateInput.replaceAll('-', '/')
+  
+  destinationsInput = destinations.find(destination => 
+    (destination.name === destinationsInput)).id
+
+  let postTripBody = {
+    id: Date.now(), 
+    userID: user.id, 
+    destinationID: destinationsInput, 
+    travelers: numTravelersInput, 
+    date: startDateInput, 
+    duration: durationInput, 
+    status: 'pending', 
+    suggestedActivities: []
+  }
+
+  Promise.resolve(postData('trips', postTripBody))
+    .then(() => {
+      refreshUserData(user)
+      const newTrip = new Trip(postTripBody, destinations)
+      domUpdates.confirmTripBookingSubmission(newTrip, destinations)
+    })
+  
+
 }
 
 function searchForUser() {
@@ -107,6 +140,24 @@ function searchForUser() {
 function addDestination(event) {
   event.preventDefault()
 
+  const destinationInput = document.querySelector('.destination-name').value
+  const lodgingPerDayInput = document.querySelector('.lodging-per-day').value
+  const flightPerDayInput = document.querySelector('.flight-per-person').value
+  const imageInput = document.querySelector('.destination-image').value
+  const altInput = document.querySelector('.alt-image').value
+  
+  const postDestinationBody = {
+    id: Date.now(), 
+    destination: destinationInput, 
+    estimatedLodgingCostPerDay: lodgingPerDayInput, 
+    estimatedFlightCostPerPerson: flightPerDayInput, 
+    image: imageInput, 
+    alt: altInput
+  }
+
+  postData('destinations', postDestinationBody)
+
+
 }
 
 function reviewTrips(event) {
@@ -115,12 +166,12 @@ function reviewTrips(event) {
   const targetButtonName = event.target.closest('button').getAttribute('name')
 
   switch (targetButtonName) {
-    case 'approve':
-      approveTrip(tripId)
-      break;
-    case 'reject':
-      rejectTrip(tripId)
-      break;
+  case 'approve':
+    approveTrip(tripId)
+    break;
+  case 'reject':
+    rejectTrip(tripId)
+    break;
   }
 }
 
@@ -132,14 +183,16 @@ function rejectTrip(tripId) {
   console.log('Rejected')
 }
 
-function refreshData() {
+function refreshUserData(userData) {
   Promise.all([
     getData('travelers', travelers),
     getData('trips', trips),
     getData('destinations', destinations)
   ])
-  .then(data => {
-    convertDataIntoClassInstances()
-    displayTrips()
+    .then(() => {
+      user = travelers.find(traveler => traveler.id === userData.id)
+      convertDataIntoClassInstances()
+      displayUserDashboard(user)
+      console.log('WE REFRESH THIS', user.trips)
   })
 }
