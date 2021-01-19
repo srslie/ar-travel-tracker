@@ -35,6 +35,9 @@
       <h2 class="welcome-banner"></h2>
 
       <section class="booking-area hidden">
+        <div class="exit-booking">
+          <button class="booking-exit-button">X</button>
+        </div>
         <form class="booking-form" for="booking-button" onsubmit="">
           <fieldset class="booking-field">
             <legend>Book a Trip!</legend>
@@ -65,7 +68,7 @@
         </section>
         <section class="upcoming trips">
         </section>
-        <section class="pending trips">
+        <section class="pending-trips trips">
         </section>
         <section class="past trips">
         </section>
@@ -102,17 +105,23 @@
         <form class="add-destination-form" onsubmit="">
             <fieldset>
               <legend>Add a Destination</legend>
-              <p>All fields are required <abbr title="required">*</abbr></p>
-                <label for="destinations-name">Destination Name<abbr title="required" aria-label="required">*</abbr>
+              <p title="required">All fields are required *</p>
+                <label for="destinations-name" title="required" aria-label="required">Destination Name *
                 </label><br>
                 <input class="destination-name" type="text" name="destination-name" id="destination-name" placeholder="Anyplace, Anywhere..."><br>
 
-                <label for="lodging-per-day">Estimated Lodging Cost in Dollars per Day<abbr title="required" aria-label="required">*</abbr>
+                <label for="lodging-per-day" title="required" aria-label="required">Estimated Lodging Cost in Dollars per Day *
                 </label><br>
                 <input class="lodging-per-day" type="number" id="lodging-per-day" name="lodging-per-day" min='1' max='10000' placeholder="99..."><br>
               
-                <label for="flight-per-person" title="required" aria-label="required">Estimated Flight Cost in Dollars per Person*><br>
+                <label for="flight-per-person" title="required" aria-label="required">Estimated Flight Cost in Dollars per Person *><br>
                 <input class="flight-per-person" type="number" id="flight-per-person" name="flight-per-person" min='1' max='100000' placeholder="125..."><br>
+
+                <label for="destination-image" title="required" aria-label="required">Destination Image *><br>
+                <input class="destination-image" type="text" id="destination-image" name="destination-image" placeholder="http://someImagePath..."><br>
+
+                <label for="alt-image" title="required" aria-label="required">Image alternative description *><br>
+                <input class="alt-image" type="text" id="alt-image" name="alt-image" placeholder="Beaches and buildings..."><br>
 
                 <button class="add-destination-button" id="add-destination-button" type="submit" aria-label="add destination">Add Destination</button>
       </section>
