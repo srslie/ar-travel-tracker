@@ -13,6 +13,7 @@ const domUpdates = {
   },
 
   displayWelcomeBanner(user) {
+    this.clearDisplay('h2')
     const firstName = user.name.split(' ')[0]
     const welcomeHTML = `Welcome ${firstName}!`
     this.addDisplay('h2', 'afterbegin', welcomeHTML)
@@ -39,7 +40,6 @@ const domUpdates = {
       tripsHTML += tripsList.map(trip => this.createCardHtml(trip)).join('')
     } 
 
-    console.log('CHEKIT', area, tripsHTML)
     this.addDisplay( area, 'beforeend', tripsHTML)
   }, 
 
@@ -51,7 +51,8 @@ const domUpdates = {
     return `
         <article class="trip-card ${trip.status}" 
         id="${trip.id}" 
-        style="background-image: url(${trip.destination.image});">
+        style="background-image: url(${trip.destination.image});"
+        alt="${trip.destination.alt}">
           <div class="trip-title">
             <h2>Trip to ${trip.destination.name}</h2>
           </div>
@@ -76,7 +77,7 @@ const domUpdates = {
       return '<h2 class="trips-label">Present Trips</h2>'
     case ('.upcoming'):
       return '<h2 class="trips-label">Upcoming Trips</h2>'
-    case ('.pending'):
+    case ('.pending-trips'):
       return '<h2 class="trips-label">Pending Trips</h2>'
     case ('.approved'):
       return '<h2 class="trips-label">Approved Trips</h2>'
@@ -87,21 +88,18 @@ const domUpdates = {
     }
   },
 
-  confirmTripBookingSubmission(postBody, destinations) {
+  confirmTripBookingSubmission(newTrip) {
     this.clearDisplay('.booking-confirmation')
 
-    const destination = destinations.find(destination => 
-      (destination.id === postBody.destinationID)).name
-
-    const confirmationHtml = `
-      Yay! Your trip to ${destination}, 
-      for ${postBody.duration} days,
-      starting ${postBody.date},
-      for ${postBody.travelers} travelers, 
-      with an estimated cost of 
-      is now PENDING agent approval.`
+    let confirmationHtml = `<h2 class="new-trip-title">Confirmation of New Trip Pending</h2>`
+    confirmationHtml += this.createCardHtml(newTrip)
     this.addDisplay('.booking-confirmation', 'beforeend', confirmationHtml)
-    this.toggle(['.booking-area', '.booking-form', '.booking-field', '.booking-confirmation'])
+    this.toggle([
+      '.booking-area', 
+      '.booking-form', 
+      '.booking-field', 
+      '.booking-confirmation'
+    ])
   },
 
   displayTotalTripSpending(user, today) {
@@ -157,16 +155,20 @@ const domUpdates = {
         return this.createCardHtml(trip) + 
         `
           <div class="agent-trip-interaction"
-            <button class="approve-button agent-interaction" aria-label="approve tripbutton">
+            <button class="approve-button agent-interaction" 
+            aria-label="approve tripbutton">
             Approve Booking
             </button>
-            <button class="reject-button agent-interaction" aria-label="reject tripbutton">
+            <button class="reject-button agent-interaction" 
+            aria-label="reject tripbutton">
             Reject Booking
             </button>
-            <button class="delete-trip-button agent-interaction" aria-label="deletetrip button">
+            <button class="delete-trip-button agent-interaction" 
+            aria-label="deletetrip button">
             Delete Trip
             </button>
-            <button class="back-to-search-results" aria-label="back to seach resultsbutton">
+            <button class="back-to-search-results" 
+            aria-label="back to seach resultsbutton">
             Back to Search Results
             </button>
           </div>
