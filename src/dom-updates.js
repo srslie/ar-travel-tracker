@@ -21,7 +21,8 @@ const domUpdates = {
  createBookingsSelection(destinations) {
     let selectionHTML = ''
     destinations.forEach(destination => {
-      selectionHTML += `<option value="${destination.name}">${destination.name}</option>`
+      selectionHTML += `<option value="${destination.name}">
+      ${destination.name}</option>`
     });
     this.addDisplay('select', 'beforeend', selectionHTML)
   },
@@ -30,11 +31,15 @@ const domUpdates = {
     this.clearDisplay(area)
     let tripsHTML = ''
     if (!tripsList.length) {
-      tripsHTML += `<div class="no-trips">${this.addTripLabel(area)} <p>No trips to display, better book a trip!</p></div>`
+      tripsHTML += `<div class="no-trips">
+      ${this.addTripLabel(area)} 
+      <p>No trips to display, better book a trip!</p></div>`
     } else {
       tripsHTML = `${this.addTripLabel(area)}`
       tripsHTML += tripsList.map(trip => this.createCardHtml(trip)).join('')
     } 
+
+    console.log('CHEKIT', area, tripsHTML)
     this.addDisplay( area, 'beforeend', tripsHTML)
   }, 
 
@@ -43,8 +48,10 @@ const domUpdates = {
       ? `<h3>Suggested Activites:</h3> 
             <p>${trip.suggestedActivities}</p>`
       : ''
-     return `
-        <article class="trip-card ${trip.status}" id="${trip.id}" style="background-image: url(${trip.destination.image});">
+    return `
+        <article class="trip-card ${trip.status}" 
+        id="${trip.id}" 
+        style="background-image: url(${trip.destination.image});">
           <div class="trip-title">
             <h2>Trip to ${trip.destination.name}</h2>
           </div>
@@ -64,26 +71,37 @@ const domUpdates = {
   },
 
   addTripLabel(area) {
-    switch(area) {
-      case ('.present'):
-        return '<h2 class="trips-label">Present Trips</h2>'
-        break;
-      case ('.upcoming'):
-        return '<h2 class="trips-label">Upcoming Trips</h2>'
-        break;
-      case ('.pending'):
-        return '<h2 class="trips-label">Pending Trips</h2>'
-        break;
-      case ('.approved'):
-        return '<h2 class="trips-label">Approved Trips</h2>'
-        break;
-      case ('.rejected'):
-        return '<h2 class="trips-label">Rejected Trips</h2>'
-        break;
-      case ('.past'):
-        return '<h2 class="trips-label">Past Trips</h2>'
-        break;
+    switch (area) {
+    case ('.present'):
+      return '<h2 class="trips-label">Present Trips</h2>'
+    case ('.upcoming'):
+      return '<h2 class="trips-label">Upcoming Trips</h2>'
+    case ('.pending'):
+      return '<h2 class="trips-label">Pending Trips</h2>'
+    case ('.approved'):
+      return '<h2 class="trips-label">Approved Trips</h2>'
+    case ('.rejected'):
+      return '<h2 class="trips-label">Rejected Trips</h2>'
+    case ('.past'):
+      return '<h2 class="trips-label">Past Trips</h2>' 
     }
+  },
+
+  confirmTripBookingSubmission(postBody, destinations) {
+    this.clearDisplay('.booking-confirmation')
+
+    const destination = destinations.find(destination => 
+      (destination.id === postBody.destinationID)).name
+
+    const confirmationHtml = `
+      Yay! Your trip to ${destination}, 
+      for ${postBody.duration} days,
+      starting ${postBody.date},
+      for ${postBody.travelers} travelers, 
+      with an estimated cost of 
+      is now PENDING agent approval.`
+    this.addDisplay('.booking-confirmation', 'beforeend', confirmationHtml)
+    this.toggle(['.booking-area', '.booking-form', '.booking-field', '.booking-confirmation'])
   },
 
   displayTotalTripSpending(user, today) {
