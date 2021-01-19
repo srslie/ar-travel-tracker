@@ -15,6 +15,9 @@
 }
 
 .booking-area {
+  top: 5em;
+  position: fixed;
+  z-index: 50;
   flex-direction: column;
   justify-content: center;
   padding: 3%;
@@ -61,14 +64,16 @@
   }
 }
 
-.booking-confirmation {
-  @include formStyle()
-  flex-direction: column;
-  justify-content: center;
-  padding: 10%;
-  align-self: center;
-  width: 80vh;
-  height: 20vh;
-  flex-direction: column;
-  // padding: 10% 15% 0% 10%;
+.booking-exit-button {
+  @include boxShadow();
+  @include buttonStyle($bold-color5);
+  padding: .5em;
+  position: absolute;
+  top: 3em;
+  left: 3em;
+  color: white;
+  height:2em;
+  width:2em;
+
 }
+
