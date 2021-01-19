@@ -14,8 +14,19 @@
 
 }
 
+.booking-area {
+  flex-direction: column;
+  justify-content: center;
+  padding: 3%;
+  align-self: center;
+  width: 80vh;
+  height: 80vh;
+}
+
 .booking-form {
-  // @import formStyle();
+  @include formStyle();
+  padding: 2% 5% 5% 5%;
+  height: 100%;
   
   select {
     width: 100%;
@@ -24,18 +35,13 @@
   }
 }
 
-.booking {
-  background-color: $bold-color3;
+.booking-field, {
   display: flex;
   flex-direction: column;
-  position: fixed;
-  // bottom: 0;
-  // right: 0;
+  // padding: 10% 15% 0% 10%;
   justify-content: center;
-  height: auto;
-  width: 20vh;
-  height: 80vh;
-  padding: 2em;
+  align-content: center;
+  height: 100%;
 
   select {
     border-radius: 10px;
@@ -50,14 +56,19 @@
   }
 
   button {
-    @include buttonStyle($bold-color1)
-    // display: flex;
-    // justify-content: center;
-    // width: 100%;
-    // align-self: center;
-    // margin: 15%;
-    // background-color: $bold-color1;
-    // font-family: $secondary-font;
-    // color: white;
+    @include buttonStyle($bold-color2)
+    margin: 0px;
   }
+}
+
+.booking-confirmation {
+  @include formStyle()
+  flex-direction: column;
+  justify-content: center;
+  padding: 10%;
+  align-self: center;
+  width: 80vh;
+  height: 20vh;
+  flex-direction: column;
+  // padding: 10% 15% 0% 10%;
 }

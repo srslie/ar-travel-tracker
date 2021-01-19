@@ -21,6 +21,10 @@
   }
 }
 
+.trips-label {
+  padding: 2em;
+}
+
 .trip-card {
   border: 1px solid black;
   @include boxShadow()
@@ -31,20 +35,15 @@
   z-index: 1;
   margin-bottom: 2em;
   
-  .trips-label {
-    margin: 50%;
-  }
 
-   .trip-title {
+  .trip-title {
     background-color: black;
     color: white;
     height: 5%;
-     @include roundedCorners()
+    @include roundedCorners()
     padding: 1em;
- 
     width: auto;
     // margin-left: 0;
-
   }
 
   h2 {
@@ -56,7 +55,7 @@
     display: column;
     background-color: $muted-color3;
     padding: 1em;
-     @include roundedCorners()
+    @include roundedCorners()
     height: 100%;
     width: 30vh;
     align-items: flex-end;
