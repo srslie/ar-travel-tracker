@@ -96,8 +96,6 @@ const domUpdates = {
     this.addDisplay('.booking-confirmation', 'beforeend', confirmationHtml)
     this.toggle([
       '.booking-area', 
-      '.booking-form', 
-      '.booking-field', 
       '.booking-confirmation'
     ])
   },

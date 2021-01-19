@@ -7,6 +7,7 @@ export function getData(database, localArray) {
     dataObject[database].forEach(dataObject => {
       localArray.push(dataObject)
     })
+    console.log('INSIDE API ARRAY', localArray)
   })
   .catch(error => {
     console.log('FETCH GET ERROR', error)
