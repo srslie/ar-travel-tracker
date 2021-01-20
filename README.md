@@ -2,7 +2,7 @@
 
 Someday quarantine will end, and Travel Tracker can help you prepare for that fateful day!
 
-Once travel is back in the books, let us help book those books for you. The [Travel Tracker](https://srslie.github.io/travel-tracker/ allows users and travel agents to work together to make memorable trips and keep track of those good times.
+Once travel is back in the books, let us help book those books for you. The [Travel Tracker](https://srslie.github.io/ar-travel-tracker/) allows users and travel agents to work together to make memorable trips and keep track of those good times.
 
 Travelers can:
 - Login using
@@ -10,7 +10,8 @@ Travelers can:
     username: traveler50
     password: travel2020
     ```
-- See user dashboard when logging in including
+  - You can also log in using  ```traveler<any number 1-50>```
+  - See user dashboard when logging in including
   - All trips (past, present, upcoming, and pending)
   - Total amount spent on trips this year including a travel agent’s 10% fee
 - Be able to make trip requests
@@ -31,11 +32,6 @@ password: travel2020
   - New trip requests (a user’s “pending” trips)
   - Total income generated this year (should be 10% of user trip cost)
   - Travelers on trips for today’s date
-- Be able to see and approve/deny trip requests 
-- Search for users by name and
-  - View their name, a list of all of their trips, and the total amount they’ve spent (including 10% agent cut)
-  - Approve a trip request for that user
-  - Delete an upcoming trip for that user
 
 This is the final project of [Turing School](https://turing.io/) Mod 2.
 
@@ -62,11 +58,20 @@ Special thanks to my mentor, [Scott Schipke](https://github.com/sschipke) and my
 
 ## Future Iterations
 
-While no future development is planned at this time, if time allowed or the project was ongoing, I would like to address:
-- 
+While no future development is planned at this time, if time allowed or the project was ongoing, had time allowed, I would've liked to address:
+
+- The completed functionality of the agent class including:
+  - Be able to see and approve/deny trip requests 
+  - Search for users by name:
+    - View their name, a list of all of their trips, and the total amount they’ve spent (including 10% agent cut)
+    - Approve a trip request for that user
+    - Delete an upcoming trip for that user
+- Adding additional styling and drying up existing SCSS
+- Adding countdown timers for each upcoming trip for users
+
 
 ## In Action
 
-![GIF of app responsive design]()
+![GIF of traveler functionality](https://media.giphy.com/media/sqPI1ZcCpzDdFynaSU/giphy.gif)
 
-![GIF of functionality]()
+![GIF of travel agent functionality](https://media.giphy.com/media/xe0bCPO3rpsaNpj5Ru/giphy.gif)

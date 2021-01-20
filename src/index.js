@@ -134,7 +134,7 @@ function bookTrip(event) {
   postData('trips', postTripBody)
     .then(response => {
       const newTripLocal = new Trip(response.newTrip, destinations)
-      user.trips.push(newTrip)
+      user.trips.push(newTripLocal)
       displayUserDashboard(user)
       domUpdates.confirmTripBookingSubmission(newTripLocal, destinations)
     })
