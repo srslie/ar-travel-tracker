@@ -1,13 +1,12 @@
 // possible databases: 'travelers', 'travelers/${id}', 'trips', 'destinations'
 
 export function getData(database, localArray) {
-  fetch(`http://localhost:3001/api/v1/${database}`)
+  return fetch(`http://localhost:3001/api/v1/${database}`)
   .then(response => response.json())
   .then(dataObject => {
     dataObject[database].forEach(dataObject => {
       localArray.push(dataObject)
     })
-    console.log('INSIDE API ARRAY', localArray)
   })
   .catch(error => {
     console.log('FETCH GET ERROR', error)
@@ -32,12 +31,16 @@ export function postData(database, bodyPost) {
     },
     body: JSON.stringify(bodyPost)
   }
-  fetch(`http://localhost:3001/api/v1/${database}`, settings)
-  .then(response => response.json())
-  .catch(error => {
-    console.log('FETCH POST ERROR', error)
-    alert(`Sorry, there was an error submitting your data!`)
-  })
+  return fetch(`http://localhost:3001/api/v1/${database}`, settings)
+    .then(response => {
+      const responseParsed = response.json()
+      console.log('API RESPONSE POST', responseParsed)
+      return responseParsed
+    })
+    .catch(error => {
+      console.log('FETCH POST ERROR', error)
+      alert(`Sorry, there was an error submitting your data!`)
+    })
 }
 
 export function deleteTrip(tripId) {
@@ -47,9 +50,9 @@ export function deleteTrip(tripId) {
       'Content-Type': 'application/json'
     }
   }
-  fetch(`http://localhost:3001/api/v1/trips/${tripId}`, settings)
-  .catch(error => {
-    console.log('FETCH DELETE ERROR', error)
-    alert(`Sorry, there is an error deleting this trip!`)
-  })
+  return fetch(`http://localhost:3001/api/v1/trips/${tripId}`, settings)
+    .catch(error => {
+      console.log('FETCH DELETE ERROR', error)
+      alert(`Sorry, there is an error deleting this trip!`)
+    })
 }

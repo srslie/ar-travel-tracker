@@ -68,7 +68,6 @@ function getToday() {
 
 function convertDataIntoClassInstances() {
   destinations = destinations.map(destination => new Destination(destination))
-  // console.log('INSTANTIATION', destinations)
   trips = trips.map(trip => new Trip(trip, destinations))
   travelers = travelers.map(traveler => new Traveler(traveler, trips))
 }
@@ -122,17 +121,12 @@ function bookTrip(event) {
     suggestedActivities: []
   }
 
-  // travelers = [];
-  // trips = [];
-  // destinations = [];
-  return Promise.resolve(postData('trips', postTripBody))
-    .then(() => {
+  postData('trips', postTripBody)
+    .then(response => {
+      const newTripLocal = new Trip(response.newTrip, destinations)
       refreshUserData(user)
-      const newTrip = new Trip(postTripBody, destinations)
-      domUpdates.confirmTripBookingSubmission(newTrip, destinations)
+      domUpdates.confirmTripBookingSubmission(newTripLocal, destinations)
     })
-  
-
 }
 
 function searchForUser() {
@@ -178,6 +172,9 @@ function reviewTrips(event) {
   case 'reject':
     rejectTrip(tripId)
     break;
+  case 'delete':
+    deleteTrip(tripId)
+    break;
   }
 }
 
@@ -189,16 +186,7 @@ function rejectTrip(tripId) {
   console.log('Rejected')
 }
 
-function refreshUserData(userData) {
-  return Promise.all([
-    getData('travelers', travelers),
-    getData('trips', trips),
-    getData('destinations', destinations)
-  ])
-    .then((response) => {
-      convertDataIntoClassInstances()
-      // console.log('REFRESHME', travelers, trips, destinations)
-      user = travelers.find(traveler => traveler.id === userData.id)
-      displayUserDashboard(user)
-  })
+function refreshUserData(newTrip) {
+  user.trips.push(newTrip)
+  displayUserDashboard(user)
 }

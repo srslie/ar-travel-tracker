@@ -90,8 +90,8 @@ const domUpdates = {
 
   confirmTripBookingSubmission(newTrip) {
     this.clearDisplay('.booking-confirmation')
-
-    let confirmationHtml = `<h2 class="new-trip-title">Confirmation of New Trip Pending</h2>`
+    let confirmationHtml = `<h2 class="new-trip-title">
+    Confirmation of New Trip Pending</h2>`
     confirmationHtml += this.createCardHtml(newTrip)
     this.addDisplay('.booking-confirmation', 'beforeend', confirmationHtml)
     this.toggle([
