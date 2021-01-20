@@ -3,11 +3,11 @@
 export function getData(database, localArray) {
   return fetch(`http://localhost:3001/api/v1/${database}`)
   .then(response => response.json())
-  .then(dataObject => {
-    dataObject[database].forEach(dataObject => {
-      localArray.push(dataObject)
-    })
-  })
+  // .then(dataObject => {
+  //   dataObject[database].forEach(dataObject => {
+  //     localArray.push(dataObject)
+  //   })
+  // })
   .catch(error => {
     console.log('FETCH GET ERROR', error)
     alert(`Sorry, there was an error loading the page!`)

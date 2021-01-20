@@ -15,7 +15,7 @@ let trips = [];
 let destinations = [];
 let user, today;
 
-window.addEventListener("load", getPageData);
+// window.addEventListener("load", getPageData);
 
 function addEvent(area, eventType, func) {
   document.querySelector(area).addEventListener(eventType, func)
@@ -31,15 +31,28 @@ addEvent('.add-desination-exit-button', 'click', displayDestinationForm)
 addEvent('.add-destination-form', 'submit', addDestination)
 addEvent('.user-search-results', 'click', reviewTrips)
 
+Promise.all([
+  getData('travelers/50'),
+  getData('trips'),
+  getData('destinations')
+])
+  .then((response) => {
+    getToday()
+    destinations = response[2].destinations.map(destination => new Destination(destination))
+    trips = response[1].trips.map(trip => new Trip(trip, destinations))
+    user = new Traveler(response[0], trips)
+    displayUserDashboard(user)
+  })
 
-function getPageData(event) {
-  travelers = [];
-  trips = [];
-  destinations = [];
-  getData('travelers', travelers),
-  getData('trips', trips),
-  getData('destinations', destinations)
-}
+
+// function getPageData(event) {
+//   travelers = [];
+//   trips = [];
+//   destinations = [];
+//   getData('travelers', travelers),
+//   getData('trips', trips),
+//   getData('destinations', destinations)
+// }
 
 function login(event) {
   event.preventDefault()
