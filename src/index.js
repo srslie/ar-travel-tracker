@@ -31,6 +31,7 @@ addEvent('.add-desination-exit-button', 'click', displayDestinationForm)
 addEvent('.add-destination-form', 'submit', addDestination)
 addEvent('.user-search-results', 'click', reviewTrips)
 
+
 function getPageData(event) {
   travelers = [];
   trips = [];
