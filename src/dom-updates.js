@@ -85,6 +85,10 @@ const domUpdates = {
       return '<h2 class="trips-label">Rejected Trips</h2>'
     case ('.past'):
       return '<h2 class="trips-label">Past Trips</h2>' 
+    case ('.today-travels'):
+      return '<h2 class="trips-label">Traveling Today</h2>'
+    case ('.pending-for-agent'):
+      return '<h2 class="trips-label">Pending Review</h2>'
     }
   },
 
@@ -101,9 +105,18 @@ const domUpdates = {
   },
 
   confirmNewDestination(newDestination) {
-    this.clearDisplay('.new-destination-confirmation')
-    let confirmationHTML = `Successfulled added new destination of ${newDestination.name}, with estimated lodging cost of $${newDestination.estimatedLodgingCostPerDay} per day, with estimated flight cost of ${newDestination.estimatedFlightCostPerPerson} per person round trip, to the selection of possible place for your clients to travel!`
-    this.addDisplay('.new-destination-confirmation', 'beforeend', confirmationHTML)
+    this.clearDisplay('.confirmation')
+
+    let confirmationHTML = `<p>Successfully added new destination of 
+    </p><h2>${newDestination.name}</h2><p> with estimated lodging cost of 
+    </p><h2>$${newDestination.estimatedLodgingCostPerDay} per day</h2><p> 
+    with estimated flight cost of 
+    </p><h2>$${newDestination.estimatedFlightCostPerPerson} per person round trip</h2><p>
+    to the selection of possible places for your clients to travel!</p>
+    <img class="new-destination-image" src="${newDestination.image}" alt="${newDestination.alt}">
+    `
+
+    this.addDisplay('.confirmation', 'beforeend', confirmationHTML)
   },
 
   displayTotalTripSpending(user, today) {
@@ -118,11 +131,12 @@ const domUpdates = {
     this.addDisplay( '.investment', 'beforeend', moneyHTML)
   },
 
-  displayTotalIncome(user) {
+  displayTotalIncome(user, trips) {
     this.clearDisplay('.income')
-    let moneyHTML = '<h2>Yearly Travel Income</h2>'
-    if (user.totalTripSpending) {
-      moneyHTML += `<p>$${ user.calculateYearlyIncome()}</p>`
+    let moneyHTML = '<h2>Total Yearly Earnings</h2>'
+    const incomeTotal = user.calculateYearlyIncome(trips)
+    if (incomeTotal) {
+      moneyHTML += `<p>$${incomeTotal}</p>`
     } else {
       moneyHTML += 'Work hard, play hard: book some trips!'
     }
@@ -133,19 +147,21 @@ const domUpdates = {
     this.clearDisplay('.user-search-results')
     let searchResultsHTML = `<h2>Search Results</h2>`
     if (userResults.length) {
-      searchResultsHTML += 'Sorry, no clients found with that name...'
-    } else {
-      searchResultsHTML += userResults.forEach(client=> {
-        return `
-        <div class="search-result-card>
+      userResults.forEach(client => {
+      searchResultsHTML +=  `
+        <div class="search-result-card ${client.id}">
           <h2>Client Name:</h2>
             <p>${client.name}</p>
           <button class="client-trips-button">All Client Trips</button>
         <div>
         `
       })
+       console.log('INEACH', searchResultsHTML)
+    } else {
+       searchResultsHTML += 'Sorry, no clients found with that name...'
     }
-    this.addDisplay('.user-search-results', 'beforeend', searchResultsHTML.join(''))
+    console.log('BEFORERETURN', searchResultsHTML)
+    this.addDisplay('.user-search-results', 'beforeend', searchResultsHTML)
   },
 
   displayClientTripsForAgent(client) {
@@ -180,7 +196,37 @@ const domUpdates = {
         `
       })
     }
-    this.addDisplay( '.client-trips', 'beforeend', clientTripsHTML.join(''))
+    this.addDisplay('.client-trips', 'beforeend', clientTripsHTML)
+  },
+
+  displayAgentConfirmation(trip, confirmingWhat) {
+    this.clearDisplay('.confirmation')
+    this.toggle(['.confirmation', ])
+
+    const clientName = travelers.find(user => user.id === trips.userID).name
+    let confirmationHtml = `
+    <h2>Update Confirmed!</h2>
+      <p>Trip id #${trip.id} to 
+      ${trip.name} for 
+      ${clientName} has been 
+      ${confirmingWhat}!</p>
+    `
+    this.addDisplay('.confirmation', 'beforeend', confirmationHtml)
+  },
+
+  displayTodayTrips(travelers, today) {
+    const todayTrips = travelers.reduce((todayTrips, client) => {
+      client.getTripsTimeline(today).currentTrips.forEach(trip => todayTrips.push(trip))
+      return todayTrips
+    }, [])
+
+    this.displayTrips(todayTrips, '.today-travels')
+  },
+
+  displayPendingTrips(trips) {
+    const pendingTrips = trips.filter(trip => trip.status === 'pending')
+
+    this.displayTrips(pendingTrips, '.pending-for-agent')
   }
 }
 

@@ -1,10 +1,12 @@
 .client-interaction {
-  // @import formStyle();
-  
-  // button {
-  //   @import buttonStyling();
-  //   background-color: $bold-color4;
-  //   color: $muted-color1;
-  // }
+  @include formStyle()
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  border: solid 2px $bold-color5;
 
+  button {
+    @include buttonStyle($bold-color3)
+  }
 }

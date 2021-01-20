@@ -14,15 +14,8 @@ class Agent {
       return total
     }, 0)
     const cutOfTripsTotal = Math.round(approvedTripsTotal * .1)
+  
     return cutOfTripsTotal
-  }
-
-  approve(trip) {
-    trip.status = 'approved'
-  }
-
-  reject(trip) {
-    trip.status = 'rejected'
   }
 }
 
