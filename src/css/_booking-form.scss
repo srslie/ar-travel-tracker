@@ -1,4 +1,4 @@
-.display-booking-button {
+.display-booking-button, .display-destination-form-button {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,7 +14,7 @@
 
 }
 
-.booking-area {
+.booking-area, .add-destination-area {
   top: 5em;
   position: fixed;
   z-index: 60;
@@ -26,7 +26,7 @@
   height: 80vh;
 }
 
-.booking-form {
+.booking-form, .add-destination-form {
   @include formStyle();
   padding: 2% 5% 5% 5%;
   height: 100%;
@@ -38,7 +38,7 @@
   }
 }
 
-.booking-field, {
+.booking-field, .add-destination-field {
   display: flex;
   flex-direction: column;
   // padding: 10% 15% 0% 10%;
@@ -64,7 +64,7 @@
   }
 }
 
-.booking-exit-button {
+.booking-exit-button, .add-destination-exit-button {
   @include boxShadow();
   @include buttonStyle($bold-color5);
   padding: .5em;

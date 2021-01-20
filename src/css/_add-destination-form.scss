@@ -1,9 +1,48 @@
+.add-destination-area {
+  overflow: auto;
+  align-self: center;
+  top: 15vh;
+}
+
 .add-destination-form {
-  // @import formStyle();
-  
-  // button {
-  //   @import buttonStyling(); 
-  //   background-color: $bold-color4;
-  //   color: $muted-color1;
-  // }
+  height: 100vh;
+  margin-top: 0;
+  align-self: center;
+}
+
+.confirmation {
+  border: solid 2px $bold-color5;
+  @include boxShadow()
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  justify-content: space-evenly;
+  align-content: center;
+  padding: 1em;
+  margin: 1em;
+  margin-bottom: 2em;
+  @include roundedCorners()
+
+  h2, p {
+    align-self: center;
+    margin: 1em;
+  }
+
+  .new-destination-image {
+    display: flex;
+    align-self: center;
+    height: 10vh;
+    width: 13vh;
+  }
+}
+
+.display-destination-form-button {
+  flex-direction: row;
+  justify-content: baseline;
+  p {
+    font-size: 1em;
+    margin: 0;
+    padding: .3vh;
+    align-self: center;
+  }
 }
