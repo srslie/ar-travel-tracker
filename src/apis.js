@@ -51,6 +51,11 @@ export function deleteTrip(tripId) {
     }
   }
   return fetch(`http://localhost:3001/api/v1/trips/${tripId}`, settings)
+    .then(response => {
+      const responseParsed = response.json()
+      console.log('API RESPONSE DELETE', responseParsed)
+      return responseParsed
+    })
     .catch(error => {
       console.log('FETCH DELETE ERROR', error)
       alert(`Sorry, there is an error deleting this trip!`)

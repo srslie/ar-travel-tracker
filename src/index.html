@@ -12,6 +12,8 @@
     </span>
        <button class="display-booking-button hidden">
        <img class="airplane" src="/images/airplane.svg" alt="airplane" aria="hidden"><br>Book a trip!</button>
+       <button class="display-destination-form-button hidden">
+       <img class="destination" src="/images/destination.svg" alt="flag on mountain" aria="hidden"><br><p>Add a destination!</p></button>
     </header> 
   
     <main>
@@ -74,20 +76,14 @@
         </section>
       </section>
 
-
-
       <section class="travel-agent hidden">
-        <section class="income money">
-          <h2>Total Yearly Earnings</h2>
-        </section>
-        <section class="pending trips">
-          <h2>Pending Trips<h2>
-        </section>
-        <section class="today-travels trips">
-          <h2>Today's Travels</h2>
-        </section>
-    
-        <section class="client-interaction">
+        <article class="confirmation hidden">
+            <div class="exit-confirmation">
+              <button class="confirmation-exit-button">X</button>
+            </div>
+          </article>
+
+      <section class="client-interaction">
           <form class="user-search-form" for="user-search" onsubmit="">
             <legend>Search For Client</legend>
 
@@ -102,38 +98,48 @@
           <article class="client-trips">
           </article>
 
-        </section>
-
-
-        <form class="add-destination-form" onsubmit="">
-            <fieldset>
-              <legend>Add a Destination</legend>
-              <p title="required">All fields are required *</p>
-
-                <label for="destinations-name" title="required" aria-label="required">Destination Name *
-                </label><br>
-                <input class="destination-name" type="text" name="destination-name" id="destination-name" placeholder="Anyplace, Anywhere..."><br>
-
-                <label for="lodging-per-day" title="required" aria-label="required">Estimated Lodging Cost in Dollars per Day *
-                </label><br>
-                <input class="lodging-per-day" type="number" id="lodging-per-day" name="lodging-per-day" min='1' max='10000' placeholder="99..."><br>
-              
-                <label for="flight-per-person" title="required" aria-label="required">Estimated Flight Cost in Dollars per Person *></label><br>
-                <input class="flight-per-person" type="number" id="flight-per-person" name="flight-per-person" min='1' max='100000' placeholder="125..."><br>
-
-                <label for="destination-image" title="required" aria-label="required">Destination Image *></label><br>
-                <input class="destination-image" type="text" id="destination-image" name="destination-image" placeholder="http://someImagePath..."><br>
-
-                <label for="alt-image" title="required" aria-label="required">Image alternative description *></label><br>
-                <input class="alt-image" type="text" id="alt-image" name="alt-image" placeholder="Beaches and buildings..."><br>
-
-                <button class="add-destination-button" id="add-destination-button" type="submit" aria-label="add destination">Add Destination</button>
-        
-          <article class="new-destination-confirmation">
-          </article>
-
       </section>
 
+        <section class="income money">
+        </section>
+        <section class="pending-for-agent trips">
+          <h2>Pending Trips<h2>
+        </section>
+        <section class="today-travels trips">
+          <h2>Today's Travels</h2>
+        </section>
+
+        <section class="add-destination-area hidden">
+          <div class="exit-destination-form">
+            <button class="add-desination-exit-button">X</button>
+          </div>
+          <form class="add-destination-form" onsubmit="">
+              <fieldset class="add-destination-field">
+                <legend>Add a Destination</legend>
+                <p title="required">All fields are required *</p>
+
+                  <label for="destinations-name" title="required" aria-label="required">Destination Name *
+                  </label><br>
+                  <input class="destination-name" type="text" name="destination-name" id="destination-name" placeholder="Anyplace, Anywhere..."><br>
+
+                  <label for="lodging-per-day" title="required" aria-label="required">Estimated Lodging Cost in Dollars per Day *
+                  </label><br>
+                  <input class="lodging-per-day" type="number" id="lodging-per-day" name="lodging-per-day" min='1' max='10000' placeholder="99..."><br>
+                
+                  <label for="flight-per-person" title="required" aria-label="required">Estimated Flight Cost in Dollars per Person *></label><br>
+                  <input class="flight-per-person" type="number" id="flight-per-person" name="flight-per-person" min='1' max='100000' placeholder="125..."><br>
+
+                  <label for="destination-image" title="required" aria-label="required">Destination Image *></label><br>
+                  <input class="destination-image" type="text" id="destination-image" name="destination-image" placeholder="http://someImagePath..."><br>
+
+                  <label for="alt-image" title="required" aria-label="required">Image alternative description *></label><br>
+                  <input class="alt-image" type="text" id="alt-image" name="alt-image" placeholder="Beaches and buildings..."><br>
+
+                  <button class="add-destination-button" id="add-destination-button" type="submit" aria-label="add destination">Add Destination</button>
+            </fieldset>
+          </form>
+        </section>
+      </section>
     </main> 
   </body>
 </html>
