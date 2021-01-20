@@ -30,18 +30,4 @@ describe('Trip', function() {
     expect(agent.calculateYearlyIncome(tripsArray)).to.equal(1499)
   });
 
-  it('should be able to approve trips', function() {
-    const trip = tripsArray[1]
-    expect(trip.status).to.equal('pending')
-    agent.approve(trip)
-    expect(trip.status).to.equal('approved')
-  });
-
-  it('should be able to reject trips', function() {
-    const trip = tripsArray[2]
-    expect(trip.status).to.equal('pending')
-    agent.reject(trip)
-    expect(trip.status).to.equal('rejected')
-  });
-
 })
